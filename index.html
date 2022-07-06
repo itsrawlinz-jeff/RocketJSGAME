@@ -152,7 +152,9 @@
             <div class="row align-items-end mb-4">
                     
                     <div class="scene"> 
+                        <div class="busted"><h1>BUSTED</h1></div>
                     <div class="rocket">
+                        
                     <img src="rocket.png"> 
                    <!--  <input class="form-control" type="text" placeholder="X1.5" readonly style="color:black !important;"> -->
 
@@ -181,11 +183,46 @@
             scene.appendChild(star);
             i++
 
-
-
+ 
+            
         }
     }
     stars();
+
+    function rocket(){
+        var rocket1 = document.querySelector('.rocket');
+        var busted = document.querySelector('.busted');
+        busted.style.display = 'none';
+
+        function blow(){setTimeout(function(){
+            rocket1.style.display = 'none';
+            busted.style.display = 'block';
+            
+            let stars = document.querySelectorAll('.scene i');
+            stars.forEach(function(star){
+                star.style.animationPlayState = 'paused';
+            });
+
+            appear();
+        }, 2000);}
+
+        blow();
+        function appear(){setTimeout(function(){
+            rocket1.style.display = 'block';
+            busted.style.display = 'none';
+            
+            let stars = document.querySelectorAll('.scene i');
+            stars.forEach(function(star){
+                star.style.animationPlayState = 'running';
+            });
+
+            blow();
+        }, 4000);}
+
+        appear();
+
+    }
+    rocket();
 
 </script>
               

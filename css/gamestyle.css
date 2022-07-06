@@ -17,6 +17,14 @@
 
 
 }
+.scene h1{
+	color: rgba(192, 17, 17, 0.746);
+	font-size: 3rem;
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: 0;
+	margin-top: 0;
+}
 .scene i
 {
 	position: absolute;
