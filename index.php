@@ -1,3 +1,50 @@
+<?php
+/* session_start();
+
+  include("connection.php");
+  include("functions.php");
+  $user_data = check_login($con); */
+  
+                include("connection.php");
+                include("functions.php");
+                if($_SERVER['REQUEST_METHOD'] == "POST")
+                {
+                //something was posted
+                $user_name = $_POST['user_name'];
+                $password = $_POST['password'];
+
+                if(!empty($user_name) && !empty($password) && !is_numeric($user_name))
+                {
+                    //read from database:
+                    $query = "select * from users where user_name = '$user_name' limit 1 ";
+
+                    $result = mysqli_query($con, $query);
+                    if($result)
+                    {
+                        if($result && mysqli_num_rows($result) > 0)
+                        {
+                            $user_data = mysqli_fetch_assoc($result);
+                            if($user_data['password'] === $password);
+                            {
+                                $_SESSION['user_id'] = $user_data['user_id'];
+
+                                // redirect user to dashboard page
+                                echo "Login Successful !!" ;
+                                //header("Location: dashboard.php");
+                                session_start();
+                                die;
+                            }
+                        }
+                    }
+                    echo "Wrong username or password !!" ;
+                }else
+                {
+                    echo "Wrong username or password !!";
+                }
+
+                }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,8 +59,8 @@
     <link href="img/favicon.ico" rel="icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -29,9 +76,15 @@
     <link href="css/style.css" rel="stylesheet">
     <link href="css/gamestyle.css" rel="stylesheet">
 
+            <!-- Page Transitions -->
+    <!--<script defer src="node_modules/swup/dist"></script> -->
+    <!--<script defer src="https://unpkg.com/swup@3"></script>
+      -->
+
+
 </head>
 
-<body>
+<body id="swup" class="transition-fadeOut">
     <!-- Header Start -->
     <div class="container-fluid">
         <div class="row">
@@ -79,12 +132,17 @@
                     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <button type="button" class="btn btn-primary">LOGIN</button>
+                    
+                    <!--
+                    <div class="button large popup-button" data-target="#popup-main">Login Popup</div>
+                    <div class="button large popup-button" data-target="#popup-secondary">SignUp Popup</div>
+                    -->
+                    
+                    <button type="button" class="btn btn-primary button large popup-button" data-target="#popup-main">LOGIN</button> </a>
                     <br>
                     <br>
-                    <button type="button" class="btn btn-secondary">SIGN UP</button>
-
-
+                    <button type="button" class="btn btn-secondary button large popup-button" data-target="#popup-secondary">SIGN UP</button>
+                    
 
                 </nav>
             </div>
@@ -111,7 +169,7 @@
     </div>
     <!-- Page Header End -->
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -135,7 +193,7 @@
      
     </ul>
   </div>
-</nav>
+    </nav>
     <!-- Game Code Start -->
  <div class="container-fluid py-5">
         <div class="container">
@@ -226,7 +284,7 @@
         </div>
     </div>
     <!--Game Code End-->
-<center>
+    <center>
     <form>
   <fieldset disabled>
     
@@ -249,7 +307,7 @@
   <button type="submit" class="btn btn-primary">STAKE</button>
 </form>
 
-</center>
+    </center>
 
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-white mt-5 py-5 px-sm-3 px-md-5">
@@ -333,6 +391,134 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <!-- pop Up-->
+    <script defer src="transision.js"></script> 
+    <link href="transision.css" rel="stylesheet">
+    
+    <div class="popup" id="popup-main">
+        <div class="popup-overlay popup-button" data-target="#popup-main"></div>
+        <div class="popup-inner">
+            <?php
+                /* Moved login code to the top ;) */
+            ?>
+            <style type="text/css">
+       <style type="text/css">
+            #text{
+                height: 25px;
+                border-radius: 5px;
+                padding: 4px;
+                border: solid thin #aaa;
+                background-color: whitesmoke;
+            }
+            #button{
+                padding: 10px;
+                width: 100px;
+                color:black;
+                background-color: yellow;
+                border: 7px;;
+                border-radius: 15%;
+                box-shadow:0px 0px 10px 0px rgba(0,0,0,0.1);
+            }
+            #box{
+                background-color: white; 
+                color: black;
+                margin: auto;
+                width: 300px;
+                padding: 20px;
+                border-radius: 16px;
+                box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+            }
+        </style>
+        <div id="box"> 
+            <form method= "post">
+                <div style="font-size: 20px; margin: 10px;color:mwhite; ">Login</div>
+                <input id ="text"type="text" name= "user_name" placeholder="name" ><br><br>
+                <input id ="text"type="text" name= "contact" placeholder="+254.."><br><br>
+                <input id ="text"type="password" name= "password" placeholder="***"><br><br>
+                <input id ="button"  type="submit" name= "login"><br><br>
+
+                <button class="button popup-button" data-target="#popup-main" style="border: none; background-color: whitesmoke;">X</button>
+                <!-- <a href='/RocketJSGame/RocketJSGAME/signUp.html'>Click to Signup</a><br><br> -->
+            </form>
+        </div>
+        </div>
+    </div>
+
+    <div class="popup" id="popup-secondary">
+        <div class="popup-overlay popup-button" data-target="#popup-secondary"></div>
+        <div class="popup-inner">
+        <?php
+            //session_start();
+            include("connection.php");
+            require_once "functions.php";
+            
+            if($_SERVER['REQUEST_METHOD'] == "POST")
+            {
+                //something was posted
+                $contact = $_POST['contact'];
+                $user_name = $_POST['user_name'];
+                $password = $_POST['password'];
+
+                if(!empty($user_name) && !empty($password) && !is_numeric($user_name))
+                {
+                    //save to database:
+                    $user_id = random_num(20);
+                    $query = "insert into users (user_id,user_name,pasword) values ('$user_id', '$user_name', '$contact', '$password')";
+
+                    mysqli_query($con, $query);
+
+                    // redirect user to login page
+                    echo "Signup Successful !!" ;
+                    //header("Location: login.php");
+                    die;
+                }else
+                {
+                    echo "Please enter a valid input" ;
+                }
+
+            }
+
+        ?>
+        <style type="text/css">
+            #text{
+                height: 25px;
+                border-radius: 5px;
+                padding: 4px;
+                border: solid thin #aaa;
+            }
+            #button{
+                padding: 10px;
+                width: 100px;
+                color:black;
+                background-color: rgb(16, 106, 16);
+                border:none;
+            }
+            #box{
+                background-color: white;
+                color: black;
+                margin: auto;
+                width: 300px;
+                padding: 20px;
+                border: 10px;
+                border-radius: 16px;
+                box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+            }
+        </style>
+        <div id="box">
+            <form method= "post">
+                <div style="font-size: 20px; margin: 10px;color:mwhite; ">Signup</div>
+                <input id ="text"type="text" name= "contact" placeholder="+254.."><br><br>
+                <input id ="text"type="text" name= "user_name" placeholder="name"><br><br>
+                <input id ="text"type="password" name= "password" placeholder="***"><br><br>
+
+                <input id ="button"type="submit" name= "signup"><br><br>
+                <button class="button popup-button" data-target="#popup-secondary" style="border: none; background-color: white;">X</button>
+                <!-- <a href='/RocketJSGame/RocketJSGAME/logIn.html'>Click to login</a><br><br> -->
+            </form>
+        </div>
+    </div>
+
 </body>
 
 </html>
