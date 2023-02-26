@@ -1,0 +1,1 @@
+> replace firebase config with own
