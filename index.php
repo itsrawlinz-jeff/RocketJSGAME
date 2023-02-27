@@ -29,9 +29,9 @@
                                 $_SESSION['user_id'] = $user_data['user_id'];
 
                                 // redirect user to dashboard page
-                                echo "Login Successful !!" ;
-                                //header("Location: dashboard.php");
+                                //alert("Success !!");
                                 session_start();
+                                header("Location: index.php");
                                 die;
                             }
                         }
@@ -464,17 +464,17 @@
                 {
                     //save to database:
                     $user_id = random_num(20);
-                    $query = "insert into users (user_id,user_name,pasword) values ('$user_id', '$user_name', '$contact', '$password')";
+                    $query = "insert into users (user_id,user_name,contact,password) values ('$user_id', '$user_name', '$contact', '$password')";
 
                     mysqli_query($con, $query);
 
                     // redirect user to login page
-                    echo "Signup Successful !!" ;
+                    alert("Success !!");                
                     //header("Location: login.php");
                     die;
                 }else
                 {
-                    echo "Please enter a valid input" ;
+                    alert("Please enter some valid information!");
                 }
 
             }
@@ -511,8 +511,9 @@
                 <input id ="text"type="text" name= "contact" placeholder="+254.."><br><br>
                 <input id ="text"type="text" name= "user_name" placeholder="name"><br><br>
                 <input id ="text"type="password" name= "password" placeholder="***"><br><br>
+                <input id="checkbox" type="checkbox" name="tac"> I accept terms and conditions<br><br>
 
-                <input id ="button"type="submit" name= "signup"><br><br>
+                <input id ="submit"type="submit" name= "signup"><br><br>
                 <button class="button popup-button" data-target="#popup-secondary" style="border: none; background-color: white;">X</button>
                 <!-- <a href='/RocketJSGame/RocketJSGAME/logIn.html'>Click to login</a><br><br> -->
             </form>

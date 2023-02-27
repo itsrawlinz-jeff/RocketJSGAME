@@ -13,11 +13,14 @@ window.onload = () => {
     });
 }
 
+var terms = document.getElementById("checkbox");
+document.getElementById("submit").disabled = true;
 
-
-
-/*
-import Swup from "swup";
-
-const swup = new Swup({});
-*/
+terms.addEventListener("change", agreeTerms, false);
+function agreeTerms() {
+    if (terms.checked) {
+        document.getElementById("submit").disabled = false;
+    } else {
+        document.getElementById("submit").disabled = true;
+    }
+};
