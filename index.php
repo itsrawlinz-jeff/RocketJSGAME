@@ -81,10 +81,183 @@
     <!--<script defer src="https://unpkg.com/swup@3"></script>
       -->
 
+      <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
+
+<!-- Add Firestore -->
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js"></script>
 
 </head>
 
 <body id="swup" class="transition-fadeOut">
+
+
+<!----------------------------------- FIREBASE HERE ------------------------------->
+
+<script type="module">
+
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+  import { getFirestore, collection, addDoc, updateDoc, doc} from "https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js";
+  import { onSnapshot } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAD2Lh_5ZguOtuyghcwb9qKoS_uHn8H7Mg",
+      authDomain: "horizon-b3c9e.firebaseapp.com",
+      projectId: "horizon-b3c9e",
+      storageBucket: "horizon-b3c9e.appspot.com",
+      messagingSenderId: "336755058283",
+      appId: "1:336755058283:web:1d139c74e3c9ceb35ff32e",
+      measurementId: "G-4Q7XY7F4JX"
+    };
+  
+    const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+    function stars(argument) {
+        // body...
+        let count = 50;
+        let scene = document.querySelector('.scene');
+        let i = 0;
+        while(i < count){
+            let star=document.createElement('i');
+            let x=Math.floor(Math.random() * window.innerWidth);
+
+            let duration = Math.random() * 1;
+            let h = Math.random() * 100;
+
+            star.style.left = x + 'px';
+            star.style.width = 1 + 'px';
+            star.style.height = 50 + h + 'px';
+            star.style.animationDuration = duration + 's';
+
+
+
+            scene.appendChild(star);
+            i++
+
+ 
+            
+        }
+    }
+    stars();
+
+    function rocket(){
+        // console.log('rocket');
+        var rocket1 = document.querySelector('.rocket');
+        var busted = document.querySelector('.busted');
+        busted.style.display = 'none';
+
+        function blow(){setTimeout(function(){
+            rocket1.style.display = 'none';
+            busted.style.display = 'block';
+            
+            let stars = document.querySelectorAll('.scene i');
+            stars.forEach(function(star){
+                star.style.animationPlayState = 'paused';
+            });
+
+            appear();
+        }, 2000);}
+
+        // blow();
+        function appear(){setTimeout(function(){
+            rocket1.style.display = 'block';
+            busted.style.display = 'none';
+            
+            let stars = document.querySelectorAll('.scene i');
+            stars.forEach(function(star){
+                star.style.animationPlayState = 'running';
+            });
+
+            // blow();
+        }, 4000);}
+
+        appear();
+
+    }
+    rocket();
+
+    const animationsCollection = collection(db, 'animations');
+
+const oddsText = document.querySelector('.oddscounter h1');
+let oddsInterval = null;
+
+const startOddsCounter = () => {
+  let oddsCount = 0.00;
+  oddsText.innerHTML = oddsCount;
+  oddsInterval = setInterval(() => {
+    oddsCount += 0.01;
+    oddsText.innerHTML = oddsCount.toFixed(2);
+  }, 10);
+}
+
+const stopOddsCounter = () => {
+  clearInterval(oddsInterval);
+}
+
+const animationListener = () => {
+  console.log("animationListener");
+  onSnapshot(doc(db, "animations", "animation"), (doc) => {
+    console.log("Current data: ", doc.data());
+    if (doc.data().isPlaying) {
+      console.log("start animation");
+      var rocket1 = document.querySelector('.rocket');
+      var busted = document.querySelector('.busted');
+      rocket1.style.display = 'block';
+      busted.style.display = 'none';
+      let stars = document.querySelectorAll('.scene i');
+      stars.forEach(function(star) {
+        star.style.animationPlayState = 'running';
+      });
+
+      let odds = document.querySelector('.oddscounter');
+      odds.style.display = 'block';
+
+      startOddsCounter();
+    } else {
+      console.log("stop animation");
+      var rocket1 = document.querySelector('.rocket');
+      var busted = document.querySelector('.busted');
+      rocket1.style.display = 'none';
+      busted.style.display = 'block';
+
+      let stars = document.querySelectorAll('.scene i');
+      stars.forEach(function(star) {
+        star.style.animationPlayState = 'paused';
+      });
+
+      stopOddsCounter();
+
+      let counter = document.querySelector('.counter');
+      counter.style.display = 'block';
+      let count = 5;
+      let counterText = document.querySelector('.counter h1');
+      counterText.innerHTML = count;
+      let counterInterval = setInterval(function() {
+        count--;
+        counterText.innerHTML = count;
+        if (count == 0) {
+          clearInterval(counterInterval);
+          counter.style.display = 'none';
+        //   startOddsCounter();
+        }
+      }, 1000);
+    }
+  });
+};
+
+
+
+animationListener();
+
+
+
+  </script>
+
+<!----------------------------------- FIREBASE HERE ------------------------------->
+
+
+
     <!-- Header Start -->
     <div class="container-fluid">
         <div class="row">
@@ -204,73 +377,74 @@
                     <div class="rocket">
                         
                     <img src="rocket.png"> 
+
                    <!--  <input class="form-control" type="text" placeholder="X1.5" readonly style="color:black !important;"> -->
 
 
 
 <script>
-    function stars(argument) {
-        // body...
-        let count = 50;
-        let scene = document.querySelector('.scene');
-        let i = 0;
-        while(i < count){
-            let star=document.createElement('i');
-            let x=Math.floor(Math.random() * window.innerWidth);
+    // function stars(argument) {
+    //     // body...
+    //     let count = 50;
+    //     let scene = document.querySelector('.scene');
+    //     let i = 0;
+    //     while(i < count){
+    //         let star=document.createElement('i');
+    //         let x=Math.floor(Math.random() * window.innerWidth);
 
-            let duration = Math.random() * 1;
-            let h = Math.random() * 100;
+    //         let duration = Math.random() * 1;
+    //         let h = Math.random() * 100;
 
-            star.style.left = x + 'px';
-            star.style.width = 1 + 'px';
-            star.style.height = 50 + h + 'px';
-            star.style.animationDuration = duration + 's';
+    //         star.style.left = x + 'px';
+    //         star.style.width = 1 + 'px';
+    //         star.style.height = 50 + h + 'px';
+    //         star.style.animationDuration = duration + 's';
 
 
 
-            scene.appendChild(star);
-            i++
+    //         scene.appendChild(star);
+    //         i++
 
  
             
-        }
-    }
-    stars();
+    //     }
+    // }
+    // stars();
 
-    function rocket(){
-        var rocket1 = document.querySelector('.rocket');
-        var busted = document.querySelector('.busted');
-        busted.style.display = 'none';
+    // function rocket(){
+    //     var rocket1 = document.querySelector('.rocket');
+    //     var busted = document.querySelector('.busted');
+    //     busted.style.display = 'none';
 
-        function blow(){setTimeout(function(){
-            rocket1.style.display = 'none';
-            busted.style.display = 'block';
+    //     function blow(){setTimeout(function(){
+    //         rocket1.style.display = 'none';
+    //         busted.style.display = 'block';
             
-            let stars = document.querySelectorAll('.scene i');
-            stars.forEach(function(star){
-                star.style.animationPlayState = 'paused';
-            });
+    //         let stars = document.querySelectorAll('.scene i');
+    //         stars.forEach(function(star){
+    //             star.style.animationPlayState = 'paused';
+    //         });
 
-            appear();
-        }, 2000);}
+    //         appear();
+    //     }, 2000);}
 
-        blow();
-        function appear(){setTimeout(function(){
-            rocket1.style.display = 'block';
-            busted.style.display = 'none';
+    //     blow();
+    //     function appear(){setTimeout(function(){
+    //         rocket1.style.display = 'block';
+    //         busted.style.display = 'none';
             
-            let stars = document.querySelectorAll('.scene i');
-            stars.forEach(function(star){
-                star.style.animationPlayState = 'running';
-            });
+    //         let stars = document.querySelectorAll('.scene i');
+    //         stars.forEach(function(star){
+    //             star.style.animationPlayState = 'running';
+    //         });
 
-            blow();
-        }, 4000);}
+    //         blow();
+    //     }, 4000);}
 
-        appear();
+    //     appear();
 
-    }
-    rocket();
+    // }
+    // rocket();
 
 </script>
               
@@ -281,8 +455,20 @@
 </center> -->
 
         </div>
+        <!-- place the oddscounter at the bottom of the div -->
+        <div class="oddscounter"
+         style="display: none; position: absolute; bottom: 0;  margin: 10px; padding: 10px; background: none; color: #fff; font-size: 20px; font-weight: bold;">
+        
+        <h1></h1>
+    </div>
         </div>
     </div>
+
+   
+
+    <div class="counter" style="display: none;">
+            Relaunching in: <h1 style="font-size: 20px;"></h1>
+        </div>
     <!--Game Code End-->
     <center>
     <form>
