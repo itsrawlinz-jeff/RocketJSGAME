@@ -1,10 +1,4 @@
-<?php
-/* session_start();
-
-  include("connection.php");
-  include("functions.php");
-  $user_data = check_login($con); */
-  
+<?php 
                 include("connection.php");
                 include("functions.php");
                 if($_SERVER['REQUEST_METHOD'] == "POST")
@@ -82,10 +76,14 @@
       -->
 
       <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
 
-<!-- Add Firestore -->
-<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js"></script>
+    <!-- Add Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js"></script>
+
+    <!-- pop Up-->
+    <script defer src="transision.js"></script> 
+    <link href="transision.css" rel="stylesheet">
 
 </head>
 
@@ -179,80 +177,78 @@
 
     const animationsCollection = collection(db, 'animations');
 
-const oddsText = document.querySelector('.oddscounter h1');
-let oddsInterval = null;
+    const oddsText = document.querySelector('.oddscounter h1');
+    let oddsInterval = null;
 
-const startOddsCounter = () => {
-  let oddsCount = 0.00;
-  oddsText.innerHTML = oddsCount;
-  oddsInterval = setInterval(() => {
-    oddsCount += 0.01;
-    oddsText.innerHTML = oddsCount.toFixed(2);
-  }, 10);
-}
-
-const stopOddsCounter = () => {
-  clearInterval(oddsInterval);
-}
-
-const animationListener = () => {
-  console.log("animationListener");
-  onSnapshot(doc(db, "animations", "animation"), (doc) => {
-    console.log("Current data: ", doc.data());
-    if (doc.data().isPlaying) {
-      console.log("start animation");
-      var rocket1 = document.querySelector('.rocket');
-      var busted = document.querySelector('.busted');
-      rocket1.style.display = 'block';
-      busted.style.display = 'none';
-      let stars = document.querySelectorAll('.scene i');
-      stars.forEach(function(star) {
-        star.style.animationPlayState = 'running';
-      });
-
-      let odds = document.querySelector('.oddscounter');
-      odds.style.display = 'block';
-
-      startOddsCounter();
-    } else {
-      console.log("stop animation");
-      var rocket1 = document.querySelector('.rocket');
-      var busted = document.querySelector('.busted');
-      rocket1.style.display = 'none';
-      busted.style.display = 'block';
-
-      let stars = document.querySelectorAll('.scene i');
-      stars.forEach(function(star) {
-        star.style.animationPlayState = 'paused';
-      });
-
-      stopOddsCounter();
-
-      let counter = document.querySelector('.counter');
-      counter.style.display = 'block';
-      let count = 5;
-      let counterText = document.querySelector('.counter h1');
-      counterText.innerHTML = count;
-      let counterInterval = setInterval(function() {
-        count--;
-        counterText.innerHTML = count;
-        if (count == 0) {
-          clearInterval(counterInterval);
-          counter.style.display = 'none';
-        //   startOddsCounter();
-        }
-      }, 1000);
+    const startOddsCounter = () => {
+    let oddsCount = 0.00;
+    oddsText.innerHTML = oddsCount;
+    oddsInterval = setInterval(() => {
+        oddsCount += 0.01;
+        oddsText.innerHTML = oddsCount.toFixed(2);
+    }, 10);
     }
-  });
-};
+
+    const stopOddsCounter = () => {
+    clearInterval(oddsInterval);
+    }
+
+    const animationListener = () => {
+    console.log("animationListener");
+    onSnapshot(doc(db, "animations", "animation"), (doc) => {
+        console.log("Current data: ", doc.data());
+        if (doc.data().isPlaying) {
+        console.log("start animation");
+        var rocket1 = document.querySelector('.rocket');
+        var busted = document.querySelector('.busted');
+        rocket1.style.display = 'block';
+        busted.style.display = 'none';
+        let stars = document.querySelectorAll('.scene i');
+        stars.forEach(function(star) {
+            star.style.animationPlayState = 'running';
+        });
+
+        let odds = document.querySelector('.oddscounter');
+        odds.style.display = 'block';
+
+        startOddsCounter();
+        } else {
+        console.log("stop animation");
+        var rocket1 = document.querySelector('.rocket');
+        var busted = document.querySelector('.busted');
+        rocket1.style.display = 'none';
+        busted.style.display = 'block';
+
+        let stars = document.querySelectorAll('.scene i');
+        stars.forEach(function(star) {
+            star.style.animationPlayState = 'paused';
+        });
+
+        stopOddsCounter();
+
+        let counter = document.querySelector('.counter');
+        counter.style.display = 'block';
+        let count = 5;
+        let counterText = document.querySelector('.counter h1');
+        counterText.innerHTML = count;
+        let counterInterval = setInterval(function() {
+            count--;
+            counterText.innerHTML = count;
+            if (count == 0) {
+            clearInterval(counterInterval);
+            counter.style.display = 'none';
+            //   startOddsCounter();
+            }
+        }, 1000);
+        }
+    });
+    };
 
 
 
-animationListener();
+    animationListener();
 
-
-
-  </script>
+</script>
 
 <!----------------------------------- FIREBASE HERE ------------------------------->
 
@@ -349,21 +345,21 @@ animationListener();
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Cashier </a>
+        <div class="nav-link popup-button"  data-target="#popup-cashier">Cashier </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Affiliate Program</a>
+        <div class="nav-link popup-button" data-target="#popup-affiliate">Affiliate Program</div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">FAQs</a>
+        <div class="nav-link popup-button" data-target="#popup-FAQs">FAQs</div>
       </li>
        <li class="nav-item">
-        <a class="nav-link" href="#">Profile</a>
+        <div class="nav-link popup-button" data-target="#popup-profiles">Profile</div>
       </li>
         <li class="nav-item">
-        <a class="nav-link" href="#">Account Balance</a>
+        <div class="nav-link popup-button" data-target="#popup-account">Account Balance</div>
       </li>
-     
+    
     </ul>
   </div>
     </nav>
@@ -471,27 +467,27 @@ animationListener();
         </div>
     <!--Game Code End-->
     <center>
-    <form>
-  <fieldset disabled>
-    
-    <div class="mb-3">
-      <label for="disabledTextInput" class="form-label" style="color:green !important;"><b>RUNNING STAKES</b>  </label>
-      <input type="text" id="disabledTextInput" class="form-control" placeholder=" X30.5">
-  </fieldset>
-</form>
-<form>
-  <div class="mb-3">
-    <label for="" class="form-label" style="color:blue !important"> <b>AMOUNT</b> </label>
-    <input type="number" class="form-control" id="" aria-describedby="Amount To Stake">
-    <div id="" class="form-text">Enter the Amount To Stake</div>
-  </div>
-  <div class="mb-3">
-    <label for="" class="form-label"> <b>Auto Cash Out(X)</b> </label>
-    <input type="number" class="form-control" id="1">
-  </div>
- 
-  <button type="submit" class="btn btn-primary">STAKE</button>
-</form>
+            <form>
+        <fieldset disabled>
+            
+            <div class="mb-3">
+            <label for="disabledTextInput" class="form-label" style="color:green !important;"><b>RUNNING STAKES</b>  </label>
+            <input type="text" id="disabledTextInput" class="form-control" placeholder=" X30.5">
+        </fieldset>
+        </form>
+        <form>
+        <div class="mb-3">
+            <label for="" class="form-label" style="color:blue !important"> <b>AMOUNT</b> </label>
+            <input type="number" class="form-control" id="" aria-describedby="Amount To Stake">
+            <div id="" class="form-text">Enter the Amount To Stake</div>
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label"> <b>Auto Cash Out(X)</b> </label>
+            <input type="number" class="form-control" id="1">
+        </div>
+        
+        <button type="submit" class="btn btn-primary">STAKE</button>
+        </form>
 
     </center>
 
@@ -578,9 +574,7 @@ animationListener();
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 
-    <!-- pop Up-->
-    <script defer src="transision.js"></script> 
-    <link href="transision.css" rel="stylesheet">
+    
     
     <div class="popup" id="popup-main">
         <div class="popup-overlay popup-button" data-target="#popup-main"></div>
@@ -588,46 +582,18 @@ animationListener();
             <?php
                 /* Moved login code to the top ;) */
             ?>
-            <style type="text/css">
-       <style type="text/css">
-            #text{
-                height: 25px;
-                border-radius: 5px;
-                padding: 4px;
-                border: solid thin #aaa;
-                background-color: whitesmoke;
-            }
-            #button{
-                padding: 10px;
-                width: 100px;
-                color:black;
-                background-color: yellow;
-                border: 7px;;
-                border-radius: 15%;
-                box-shadow:0px 0px 10px 0px rgba(0,0,0,0.1);
-            }
-            #box{
-                background-color: white; 
-                color: black;
-                margin: auto;
-                width: 300px;
-                padding: 20px;
-                border-radius: 16px;
-                box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
-            }
-        </style>
-        <div id="box"> 
-            <form method= "post">
-                <div style="font-size: 20px; margin: 10px;color:mwhite; ">Login</div>
-                <input id ="text"type="text" name= "user_name" placeholder="name" ><br><br>
-                <input id ="text"type="text" name= "contact" placeholder="+254.."><br><br>
-                <input id ="text"type="password" name= "password" placeholder="***"><br><br>
-                <input id ="button"  type="submit" name= "login"><br><br>
+            <div id="box"> 
+                <form method= "post">
+                    <div style="font-size: 20px; margin: 10px;color:mwhite; ">Login</div>
+                    <input id ="text"type="text" name= "user_name" placeholder="name" ><br><br>
+                    <input id ="text"type="text" name= "contact" placeholder="+254.."><br><br>
+                    <input id ="text"type="password" name= "password" placeholder="***"><br><br>
+                    <input id ="button"  type="submit" name= "login"><br><br>
 
-                <button class="button popup-button" data-target="#popup-main" style="border: none; background-color: whitesmoke;">X</button>
-                <!-- <a href='/RocketJSGame/RocketJSGAME/signUp.html'>Click to Signup</a><br><br> -->
-            </form>
-        </div>
+                    <button class="button popup-button" data-target="#popup-main" style="border: none; background-color: whitesmoke;">X</button>
+                    <!-- <a href='/RocketJSGame/RocketJSGAME/signUp.html'>Click to Signup</a><br><br> -->
+                </form>
+            </div>
         </div>
     </div>
 
@@ -666,31 +632,7 @@ animationListener();
             }
 
         ?>
-        <style type="text/css">
-            #text{
-                height: 25px;
-                border-radius: 5px;
-                padding: 4px;
-                border: solid thin #aaa;
-            }
-            #button{
-                padding: 10px;
-                width: 100px;
-                color:black;
-                background-color: rgb(16, 106, 16);
-                border:none;
-            }
-            #box{
-                background-color: white;
-                color: black;
-                margin: auto;
-                width: 300px;
-                padding: 20px;
-                border: 10px;
-                border-radius: 16px;
-                box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
-            }
-        </style>
+        
         <div id="box">
             <form method= "post">
                 <div style="font-size: 20px; margin: 10px;color:mwhite; ">Signup</div>
@@ -705,6 +647,190 @@ animationListener();
             </form>
         </div>
     </div>
+
+    <div class="popup" id="popup-cashier">
+        <div class="popup-overlay popup-button" data-target="#popup-cashier"></div>
+        <div class="popup-inner">
+
+            <div id="specialbox"> 
+                <div class="popupcontent">
+                    <div style="font-size: 20px;font-weight: bold; margin-left: 200px;color:mwhite; ">Wallet</div>
+                    <div class="nav">
+                        <div class="nav-btn" data-target="section1">Deposit</div>
+                        <div class="nav-btn" data-target="section2">Withdraw</div>
+                        <div class="nav-btn" data-target="section3">History</div>
+                        <div class="nav-btn" data-target="section4">Bonus</div>
+                    </div>
+                    <div class="section active" id="section1">
+                        <h2>Deposit</h2>
+                        <form method= "post">
+                            <label>Amount(KES)</label><br>
+                            <input id ="text"type="text" name= "amount" placeholder="200"><br><br>
+
+                                <div class="sec-content">
+                                    <p>Please note:</p>
+                                    <p style ="font-size: small"> 
+                                        *The minimum deposit required to get a bonus is KES 300.<br>
+                                        *Withdrawals will NOT be possible until the bonus is redeemed.<br>
+                                        *See our bonus terms and conditions for more information<br>
+                                    </p>
+                                </div><br>
+
+                            <input id ="submit"type="submit" name= "deposit"></input><br><br>
+                        </form>
+                        <form method= "post">
+                            <h3>Verify pending mpesa deposit</h3>
+                                <div class="sec-content">
+                                    <p style ="font-size: small"> 
+                                    We automatically verify all mpesa transactions and you may never have to
+                                    use this step. ONLY use this if your deposit is delayed for more than a
+                                    minute.<br>
+                                    </p>
+                                </div><br>
+                            <label>Mpesa Reference Number:</label><br>
+                            <input id ="text"type="text" name= "amount" placeholder="e.g. OKL12X1DM"><br><br>
+                            <input id ="button"type="submit" name= "deposit"></input><br><br>
+                        </form>
+                        
+                    </div>
+                    <div class="section" id="section2">
+                        <h2>Withdraw</h2>
+                        <form>
+                            <h5>Withholding Tax Notice</h5>
+                            <div class="sec-content">
+                                <p style ="font-size: small"> 
+                                    As provided for by the Income Tax Act, Cap 472, all gaming companies are required to 
+                                    withhold winnings at a rate of 20%. This is the Withholding Tax. In compliance with 
+                                    the law, Horizon will deduct and remit to KRA 20% of all winnings.
+                                </p>
+                            </div><br>
+                            
+                            <label>Amount(KES)</label><br>
+                            <input id ="text"type="text" name= "amount" placeholder="50"><br><br>
+                            <div class="sec-content">
+                             <div class="content-inner"><p style=" width: 400px;">Available Balance:  </p><div> 0</div></div>
+                             <div class="content-inner"><p style=" width: 400px;">Withdraw Amount:  </p><div> 50</div></div>
+                             <div class="content-inner"><p style=" width: 400px;">Withholding tax:  </p><div>-10</div></div>
+                             <div class="content-inner"><p style=" width: 400px;">Withdraw Fee:  </p><div>16</div></div>
+                             <div class="content-inner"><p style=" width: 400px;">Disbursed Amount:  </p><div> 24</div></div>
+                            </div><br>
+                            <input id ="button"type="submit" name= "withdraw"></input><br><br>
+                        </form>
+                    </div>
+                    <div class="section" id="section3">
+                        <h2>History</h2>
+                        <p>This is the content for History.</p>
+                    </div>
+                    <div class="section" id="section4">
+                        <h2>Bonus</h2>
+                        <p>This is the content for Bonus.</p>
+                    </div>
+                    <button class="button popup-button" data-target="#popup-cashier" style="border: none; background-color: whitesmoke;">X</button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="popup" id="popup-affiliate">
+        <div class="popup-overlay popup-button" data-target="#popup-affiliate"></div>
+        <div class="popup-inner">
+        
+            <div id="specialbox"> 
+                <div class="popupcontent">
+                    <div style="font-size: 20px;font-weight: bold; margin-left: 100px ;color:mwhite; ">Horizon Affiliate Program</div>
+                    <div class="nav">
+                        <div class="nav-btn" data-target="summery">Summery</div>
+                        <div class="nav-btn" data-target="referals">Referals</div>
+                        <div class="nav-btn" data-target="payment">Payment</div>
+                        <div class="nav-btn" data-target="faq">FAQ</div>
+                    </div>
+                    <div class="section" id="summery">
+                        <h2>Summery</h2>
+                        <p>This is the content for summery.</p>
+                    </div>
+                    <div class="section" id="referals">
+                        <h2>Referals</h2>
+                        <p>This is the content for referals.</p>
+                    </div>
+                    <div class="section" id="payment">
+                        <h2>Payment</h2>
+                        <p>This is the content for payment.</p>
+                    </div>
+                    <div class="section" id="faq">
+                        <h2>FAQ</h2>
+                        <p>This is the content for FAQ.</p>
+                    </div>
+                    <button class="button popup-button" data-target="#popup-affiliate" style="border: none; background-color: whitesmoke;">X</button>
+                </div>
+            </div>
+    </div>
+
+    <div class="popup" id="popup-FAQs">
+        <div class="popup-overlay popup-button" data-target="#popup-FAQs"></div>
+        <div class="popup-inner">
+        
+        <div id="specialbox"> 
+                <div class="popupcontent">
+                    <div style="font-size: 20px;font-weight: bold; margin-left: 100px ;color:mwhite; ">Horizon Affiliate Program</div>
+                    
+                    <div class="section active" id="faq">
+                        <h2>FAQ</h2>
+                        <p>This is the content for FAQ.</p>
+                    </div>
+                    <button class="button popup-button" data-target="#popup-FAQs" style="border: none; background-color: whitesmoke;">X</button>
+                </div>
+            </div>
+    </div>
+
+    <div class="popup" id="popup-profiles">
+        <div class="popup-overlay popup-button" data-target="#popup-profiles"></div>
+        <div class="popup-inner">
+        
+            <div id="specialbox"> 
+                <div class="popupcontent">
+                    <div style="font-size: 20px;font-weight: bold; margin-left: 100px ;color:mwhite; ">Horizon Affiliate Program</div>
+                    <div class="nav">
+                        <div class="nav-btn" data-target="overview">Overview</div>
+                        <div class="nav-btn" data-target="settings">Settings</div>
+                    </div>
+                    <div class="section" id="overview">
+                        <h2>Overview</h2>
+                        <p>This is the content for overview.</p>
+                    </div>
+                    <div class="section" id="settings">
+                        <h2>Settings</h2>
+                        <p>This is the content for settings.</p>
+                    </div>
+                    <button class="button popup-button" data-target="#popup-profiles" style="border: none; background-color: whitesmoke;">X</button>
+                </div>
+            </div>
+    </div>
+
+    <div class="popup" id="popup-account">
+        <div class="popup-overlay popup-button" data-target="#popup-account"></div>
+        <div class="popup-inner">
+        
+            <div id="specialbox"> 
+                <div class="popupcontent">
+                    <div style="font-size: 20px;font-weight: bold; margin-left: 100px ;color:mwhite; ">Horizon Affiliate Program</div>
+                    <div class="nav">
+                        <div class="nav-btn" data-target="overview">Overview</div>
+                        <div class="nav-btn" data-target="settings">Settings</div>
+                    </div>
+                    <div class="section" id="overview">
+                        <h2>Overview</h2>
+                        <p>This is the content for overview.</p>
+                    </div>
+                    <div class="section" id="settings">
+                        <h2>Settings</h2>
+                        <p>This is the content for settings.</p>
+                    </div>
+                    <button class="button popup-button" data-target="#popup-account" style="border: none; background-color: whitesmoke;">X</button>
+                </div>
+            </div>
+    </div>
+    
 
 </body>
 

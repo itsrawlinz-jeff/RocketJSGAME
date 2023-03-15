@@ -1,4 +1,39 @@
 
+#text{
+  height: 25px;
+  border-radius: 5px;
+  padding: 4px;
+  border: solid thin #aaa;
+  background-color: whitesmoke;
+}
+#button{
+  padding: 10px;
+  width: 100px;
+  color:black;
+  background-color: yellow;
+  border: 7px;;
+  border-radius: 15%;
+  box-shadow:0px 0px 10px 0px rgba(0,0,0,0.1);
+}
+#box{
+  background-color: white; 
+  color: black;
+  margin: auto;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+  
+}
+.popupcontent{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 500px; /* set a fixed height */
+  width: 500px;
+  overflow-y: scroll; /* enable vertical scrolling */
+  padding: 10px;
+}
 
 .popup{
   position: fixed;
@@ -10,9 +45,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: 0;
+  visibility: hidden; /*opacity: 0;*/
   pointer-events: none;
-  transition: opacity 0.5s;
+  transition: visibility 0.5s; /*opacity*/
 
   animation: transitionOut 0.5s;
 
@@ -20,9 +55,9 @@
 }
 
 .popup.is-active {
-  opacity: 1;
+  visibility: visible; /*opacity: 2;*/
   pointer-events: all;
-  animation: transitionIn 0.5s;
+  animation: transitionIn 0.5s; 
 }
 
 .popup-overlay {
@@ -38,9 +73,10 @@
 
 .popup-inner {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   box-shadow: 0px 3px 6px rgba(0,0,0, 0.1);
-
+  align-items: center;
+  justify-content: center;
 }
 
 
@@ -66,8 +102,59 @@
   }
 }
 
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+#specialbox{
+  background-color: white; 
+  color: black;
+  margin: auto;
+  width: 600px;
+  height: 600px;
+  padding: 0px;
+  border-radius: 16px;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+}
+.nav {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.nav-btn {
+  margin: 0 10px;
+}
+
+.section {
+  display: none;
+  
+}
+
+.section.active {
+  display: block;
+}
+
+.popup-content::-webkit-scrollbar {
+  width: 0.5em; /* width of scrollbar */
+}
+.popup-content::-webkit-scrollbar-thumb {
+  background-color: white; /* color of scrollbar */
+}
+.sec-content{
+  background-color: #ededed;
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid #e4e4e4;
+}
+.content-inner{
+  display:flex;
+  border-radius: 2px;
+}
+.content-inner :hover + .content-inner.div{
+  background-color: #818181;
+}
 
 /*======================================================================================
+
 .transition-fade {
   animation: transitionIn 8000ms;
 }
@@ -90,9 +177,6 @@
     transform: translateY(0);
   }
 }
-  
-
-
 
 @keyframes transitionOut {
   from {
