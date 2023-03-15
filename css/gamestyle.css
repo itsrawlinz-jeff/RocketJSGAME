@@ -89,4 +89,12 @@
 
 }
 
+/* small screen */
+@media screen and (max-width: 600px)
+{
+	.scene{
+		height: 50vh;
+	}
+}
+
 /*EXPLOSION TEST*/

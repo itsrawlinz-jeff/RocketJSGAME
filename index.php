@@ -91,6 +91,7 @@
 
 <body id="swup" class="transition-fadeOut">
 
+<script src="/socket.io/socket.io.js"></script>
 
 <!----------------------------------- FIREBASE HERE ------------------------------->
 
@@ -176,6 +177,7 @@
 
     }
     rocket();
+    
 
     const animationsCollection = collection(db, 'animations');
 
@@ -373,6 +375,13 @@ animationListener();
             <div class="row align-items-end mb-4">
                     
                     <div class="scene"> 
+                        <style>
+                            @media screen and (max-width: 600px){
+                                .scene{
+                                    height: 50vh;
+                                }
+                            }
+                        </style>
                         <div class="busted"><h1>BUSTED</h1></div>
                     <div class="rocket">
                         

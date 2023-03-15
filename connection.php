@@ -1,7 +1,7 @@
 <?php
 $dbhost = "localhost";
-$dbuser = "root";
-$dbpass = "";
+$dbuser = "clinton";
+$dbpass = "root";
 $dbname = "rocketjs_db";
 
 if(!$con = mysqli_connect($dbhost,$dbuser,$dbpass,$dbname))
