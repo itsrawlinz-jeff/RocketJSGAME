@@ -3,18 +3,15 @@ import './home.css'
 // import { initializeApp } from 'firebase/app';
 import { getFirestore, updateDoc, doc } from 'firebase/firestore/lite'; // collection, getDocs,
 import app from './auth';
+import io from "socket.io-client"
 
 
 export default function Home() {
 
   const db = getFirestore(app);
 
-  // const getCollection = async () => {
-  //   const citiesCol = collection(db, 'animations');
-  //   const citySnapshot = await getDocs(citiesCol);
-  //   const cityList = citySnapshot.docs.map(doc => doc.data());
-  //   console.log( "city", cityList);
-  // }
+  const socket = io("http://localhost:3000");
+
 
   const startAnimation = async() => {
     updateDoc(doc(db, "animations", "animation"), {
@@ -22,6 +19,8 @@ export default function Home() {
     });
 
     console.log("start animation");
+    
+    socket.emit("start");
   }
 
   const stopAnimation = async() => {

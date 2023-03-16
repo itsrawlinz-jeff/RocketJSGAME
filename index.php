@@ -89,7 +89,8 @@
 
 <body id="swup" class="transition-fadeOut">
 
-<script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
 <!----------------------------------- FIREBASE HERE ------------------------------->
 
@@ -181,14 +182,31 @@
 
     const oddsText = document.querySelector('.oddscounter h1');
     let oddsInterval = null;
+    
 
     const startOddsCounter = () => {
-    let oddsCount = 0.00;
-    oddsText.innerHTML = oddsCount;
-    oddsInterval = setInterval(() => {
-        oddsCount += 0.01;
-        oddsText.innerHTML = oddsCount.toFixed(2);
-    }, 10);
+const oddsText = document.querySelector('.oddscounter h1');
+  let oddsInterval = null;
+
+  // Send an AJAX GET request to retrieve the current odds counter value from the server
+  const updateOddsCounter = () => {
+  $.get('http://localhost:8080/oddscounter', (data) => {
+    let oddsCount = parseFloat(data);
+    console.log(`odds counter value received from server: ${data}`);
+
+    if (isNaN(oddsCount)) {
+      oddsCount = 0.0;
+    }
+    oddsText.innerHTML = oddsCount.toFixed(2);
+  });
+};
+
+// Start the odds counter update interval
+setInterval(updateOddsCounter, 100); // update every 100 milliseconds
+
+$.post('http://localhost:8080/incrementoddscounter', () => {
+  console.log('Odds counter started on the server');
+});
     }
 
     const stopOddsCounter = () => {
