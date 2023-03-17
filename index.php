@@ -681,7 +681,7 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
 
             <div id="specialbox"> 
                 <div class="popupcontent">
-                    <div style="font-size: 20px;font-weight: bold; margin-left: 200px;color:mwhite; ">Wallet</div>
+                    <div style="font-size: 20px;font-weight: bold; margin-left: 200px;color:mwhite; ">Wallet</div><br>
                     <div class="nav">
                         <div class="nav-btn" data-target="section1">Deposit</div>
                         <div class="nav-btn" data-target="section2">Withdraw</div>
@@ -765,28 +765,51 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
         
             <div id="specialbox"> 
                 <div class="popupcontent">
-                    <div style="font-size: 20px;font-weight: bold; margin-left: 100px ;color:mwhite; ">Horizon Affiliate Program</div>
+                    <div style="font-size: 20px;font-weight: bold; margin-left: 100px ;color:mwhite; ">Horizon Affiliate Program</div><br>
+                    <h5>Refer a friend and earn 10% of their deposits!</h5><br>
+                    <p style ="font-size: small">Copy and share your Affiliate link</p>
+                    <div style="display:flex;">
+                        <input id ="text"type="text" name= "amount" placeholder="https://horizonbet.co.ke/affiliate/1234567890">
+                        <button class="button" style="border: none; background-color: whitesmoke;">Copy</button>
+                    </div>
                     <div class="nav">
                         <div class="nav-btn" data-target="summery">Summery</div>
                         <div class="nav-btn" data-target="referals">Referals</div>
                         <div class="nav-btn" data-target="payment">Payment</div>
-                        <div class="nav-btn" data-target="faq">FAQ</div>
+                        <div class="nav-btn" data-target="secfour">FAQ</div>
                     </div>
-                    <div class="section" id="summery">
-                        <h2>Summery</h2>
-                        <p>This is the content for summery.</p>
-                    </div>
+                    <div class="section active" id="summery">
+                            <div class="sec-content">
+                             <div class="content-inner"><p style=" width: 400px;">Number of Referrals:  </p><div> 0</div></div>
+                             <div class="content-inner"><p style=" width: 400px;">Total Paid:  </p><div> 0</div></div>
+                             <div class="content-inner"><p style=" width: 400px;">Total Unpaid:  </p><div>0</div></div>
+                            </div><br>
+                            <button id ="button" name= "transferToWallet">TRANSFER TO WALLET</button><br><br>
+                            <p style ="font-size: x-small">Transfer will be available once you reach KES 100</p><br><br>
+                    </div><br><br>
                     <div class="section" id="referals">
-                        <h2>Referals</h2>
-                        <p>This is the content for referals.</p>
+                        <div class="sec-content">
+                            <h3>You have no Referrals</h3>
+                        </div><br>
                     </div>
                     <div class="section" id="payment">
-                        <h2>Payment</h2>
-                        <p>This is the content for payment.</p>
+                        <div class="sec-content">
+                            <h3>You have not cashed out Affiliate Earnings</h3>
+                        </div><br>
                     </div>
-                    <div class="section" id="faq">
-                        <h2>FAQ</h2>
-                        <p>This is the content for FAQ.</p>
+                    <div class="section" id="secfour">
+                        <div class="sec-content">
+                            <h8>WHAT IS HORIZON AFFILIATE PROGRAM</h8>
+                                <p>Horizon Affiliate Program is a way for you to earn money by referring your friends to Horizon. You will earn 10% of their deposits.</p>
+                            <h8>HOW MUCH DOES IT COST TO JOIN?</h8>
+                                <p>It is absolutely free to join Horizon Affiliate Program.</p>
+                            <h8>CAN I STILL BENEFIT IF I DON'T HAVE A WEBSITE?</h8>
+                                <p>Yes, you can still benefit from Horizon Affiliate Program even if you don't have a website. You can share your Affiliate link on social media, email, or any other way you can think of.</p>
+                            <h8>HOW MUCH DO I EARN?</h8>
+                                <p>You will earn 10% of your referrals' deposits.</p>
+                            <h8>WHAT IS NEGATIVE REVENUE?</h8>
+                                <p>Negative Revenue is the amount of money you have lost to your referrals. If your referrals lose money, you will not earn any commission.</p>
+                        </div><br>
                     </div>
                     <button class="button popup-button" data-target="#popup-affiliate" style="border: none; background-color: whitesmoke;">X</button>
                 </div>
@@ -799,11 +822,50 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
         
         <div id="specialbox"> 
                 <div class="popupcontent">
-                    <div style="font-size: 20px;font-weight: bold; margin-left: 100px ;color:mwhite; ">Horizon Affiliate Program</div>
+                    <div style="font-size: 20px;font-weight: bold; margin-left: 100px ;color:mwhite; "></div><br><br>
                     
-                    <div class="section active" id="faq">
-                        <h2>FAQ</h2>
-                        <p>This is the content for FAQ.</p>
+                    <div class="active" id="">
+
+                        <div class="sec-content">
+                            <br>
+                            <h2>BASICS</h2>
+                            <hr>
+                        
+                            <h7>WHAT IS HORIZON?</h7>
+                                <p>Horizon is a sports betting platform that allows you to bet on your favorite sports and win big.</p>
+
+                            <h7>HOW DO I PLAY ROCKET?</h7>
+                            <p>First you need to have a positive balance, by depositing money through MPESA to your account or receiving a tip from someone in the community.</p>
+                            <p>Next, select the amount to bet and a cash out multiplier. Place your bet. Watch the multiplier increase from 1x upwards! You can cash out before your set up cash out limit, pressing the 'Cash Out' button. Get your bet multiplied by that multiplier. But be careful because the game can bust at any time, and you'll get nothing!</p>
+
+                            <h7>IS HORIZON A FAIR GAME?</h7>
+                            <p>Yes, Horizon is a fair game! And we can prove it.</p>
+                            <p>There are already 3rd party open source scripts to verify and calculate the game results. Check out this handy tool that one of our players generously made.</p>
+
+                            <h7>HOW HIGH CAN THE GAME GO?</h7>
+                            <p>There's no real limit!</p>
+                        </div>
+
+                        <br><br>
+
+                        
+                        <div class="sec-content">
+                            <br>
+                            <h2>AFFILIATE PROGRAM</h2>
+                            <hr>
+                            <h7>WHAT IS HORIZON AFFILIATE PROGRAM</h7>
+                                <p>Horizon Affiliate Program is a way for you to earn money by referring your friends to Horizon. You will earn 10% of their deposits.</p>
+                            <h7>HOW MUCH DOES IT COST TO JOIN?</h7>
+                                <p>It is absolutely free to join Horizon Affiliate Program.</p>
+                            <h7>CAN I STILL BENEFIT IF I DON'T HAVE A WEBSITE?</h7>
+                                <p>Yes, you can still benefit from Horizon Affiliate Program even if you don't have a website. You can share your Affiliate link on social media, email, or any other way you can think of.</p>
+                            <h7>HOW MUCH DO I EARN?</h7>
+                                <p>You will earn 10% of your referrals' deposits.</p>
+                            <h7>WHAT IS NEGATIVE REVENUE?</h7>
+                                <p>Negative Revenue is the amount of money you have lost to your referrals. If your referrals lose money, you will not earn any commission.</p>
+                        </div>
+                        <br><br>
+
                     </div>
                     <button class="button popup-button" data-target="#popup-FAQs" style="border: none; background-color: whitesmoke;">X</button>
                 </div>
@@ -816,19 +878,36 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
         
             <div id="specialbox"> 
                 <div class="popupcontent">
-                    <div style="font-size: 20px;font-weight: bold; margin-left: 100px ;color:mwhite; ">Horizon Affiliate Program</div>
+                    <div style="font-size: 20px;font-weight: bold; margin-left: 100px ;color:mwhite; ">Account</div><br>
                     <div class="nav">
                         <div class="nav-btn" data-target="overview">Overview</div>
                         <div class="nav-btn" data-target="settings">Settings</div>
                     </div>
-                    <div class="section" id="overview">
+                    <div class="section active" id="overview">
                         <h2>Overview</h2>
-                        <p>This is the content for overview.</p>
+                        <div class="sec-content">
+                             <div class="content-inner"><p style=" width: 400px;">Username:  </p><div> </div></div>
+                             <div class="content-inner"><p style=" width: 400px;">Joined:  </p><div> </div></div>
+                        </div><br>
+                        <div class="sec-content">
+                             <div class="content-inner"><p style=" width: 400px;">Deposits:  </p><div> 0</div></div>
+                             <div class="content-inner"><p style=" width: 400px;">Withdrawals:  </p><div> 0</div></div>
+                             <div class="content-inner"><p style=" width: 400px;">Balance:  </p><div>0</div></div>
+                             <div class="content-inner"><p style=" width: 400px;">Winnings:  </p><div>0</div></div>
+                        </div><br>
                     </div>
                     <div class="section" id="settings">
-                        <h2>Settings</h2>
-                        <p>This is the content for settings.</p>
-                    </div>
+                        <h2>Change Password</h2><br>
+
+                        <div class="sec-content" style="padding:5px 80px 50px 80px">
+                            <br>
+                            <p style ="font-size: normal">New Password</p>
+                             <input id ="text"type="text" name= "amount" placeholder="****" style="width: 300px;"><br>
+                            <p style ="font-size: normal">Old Password</p>
+                             <input id ="text"type="text" name= "amount" placeholder="****" style="width: 300px;"><br>
+                        </div>
+                        
+                    </div><br><br>
                     <button class="button popup-button" data-target="#popup-profiles" style="border: none; background-color: whitesmoke;">X</button>
                 </div>
             </div>
@@ -840,19 +919,36 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
         
             <div id="specialbox"> 
                 <div class="popupcontent">
-                    <div style="font-size: 20px;font-weight: bold; margin-left: 100px ;color:mwhite; ">Horizon Affiliate Program</div>
+                    <div style="font-size: 20px;font-weight: bold; margin-left: 100px ;color:mwhite; ">Account</div><br>
                     <div class="nav">
                         <div class="nav-btn" data-target="overview">Overview</div>
                         <div class="nav-btn" data-target="settings">Settings</div>
                     </div>
-                    <div class="section" id="overview">
+                    <div class="section active" id="overview">
                         <h2>Overview</h2>
-                        <p>This is the content for overview.</p>
+                        <div class="sec-content">
+                             <div class="content-inner"><p style=" width: 400px;">Username:  </p><div> </div></div>
+                             <div class="content-inner"><p style=" width: 400px;">Joined:  </p><div> </div></div>
+                        </div><br>
+                        <div class="sec-content">
+                             <div class="content-inner"><p style=" width: 400px;">Deposits:  </p><div> 0</div></div>
+                             <div class="content-inner"><p style=" width: 400px;">Withdrawals:  </p><div> 0</div></div>
+                             <div class="content-inner"><p style=" width: 400px;">Balance:  </p><div>0</div></div>
+                             <div class="content-inner"><p style=" width: 400px;">Winnings:  </p><div>0</div></div>
+                        </div><br>
                     </div>
                     <div class="section" id="settings">
-                        <h2>Settings</h2>
-                        <p>This is the content for settings.</p>
-                    </div>
+                        <h2>Change Password</h2><br>
+
+                        <div class="sec-content" style="padding:5px 80px 50px 80px">
+                            <br>
+                            <p style ="font-size: normal">New Password</p>
+                             <input id ="text"type="text" name= "amount" placeholder="****" style="width: 300px;"><br>
+                            <p style ="font-size: normal">Old Password</p>
+                             <input id ="text"type="text" name= "amount" placeholder="****" style="width: 300px;"><br>
+                        </div>
+                        
+                    </div><br><br>
                     <button class="button popup-button" data-target="#popup-account" style="border: none; background-color: whitesmoke;">X</button>
                 </div>
             </div>
