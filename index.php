@@ -768,10 +768,10 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
                     <div style="font-size: 20px;font-weight: bold; margin-left: 100px ;color:mwhite; ">Horizon Affiliate Program</div><br>
                     <h5>Refer a friend and earn 10% of their deposits!</h5><br>
                     <p style ="font-size: small">Copy and share your Affiliate link</p>
-                    <div style="display:flex;">
-                        <input id ="text"type="text" name= "amount" placeholder="https://horizonbet.co.ke/affiliate/1234567890">
-                        <button class="button" style="border: none; background-color: whitesmoke;">Copy</button>
-                    </div>
+                    <div style="display:flex; justify-content: space-between">
+                        <input style="width: 350px; background-color: rgb(239, 239, 239); " type="text" name= "amount" placeholder="https://horizonbet.co.ke/affiliate/1234567890">
+                        <button id ="button" class="button" style="50px; background-color: rgb(17, 157, 50); width:70px; ">Copy</button>
+                    </div><br>
                     <div class="nav">
                         <div class="nav-btn" data-target="summery">Summery</div>
                         <div class="nav-btn" data-target="referals">Referals</div>
