@@ -19,6 +19,7 @@ const animationsRef = db.collection('animations').doc('animation');
 // Store the current odds counter value
 let oddsCounter = 0;
 let isPlaying = false;
+let interval;
 
 // Endpoint to retrieve the current odds counter value
 app.get('/oddscounter', (req, res) => {
@@ -27,26 +28,18 @@ app.get('/oddscounter', (req, res) => {
 
 // Endpoint to increment the odds counter value
 app.post('/incrementoddscounter', (req, res) => {
-  var interval;
-  
-  function startInterval() {
-    interval = setInterval(() => {
-      if (isPlaying) {
-        oddsCounter += 0.01;
-        // if oddsCounter reaches 100, reset it to 0
-        if (oddsCounter >= 100) {
-          oddsCounter = 0;
-        }
-      } else {
-        clearInterval(interval);
-        // then set oddsCounter to 0 immediately after clearing the interval
+  // if(interval) clearInterval(interval);
+
+  interval = setInterval(() => {
+    if (isPlaying) {
+      oddsCounter += 0.01;
+      // if oddsCounter reaches 100, reset it to 0
+      if (oddsCounter >= 100) {
         oddsCounter = 0;
       }
-      console.log(oddsCounter);
-    }, 100);
-  }
-
-  startInterval();
+    }
+    console.log(oddsCounter);
+  }, 100);
 
   // Stop the interval if isPlaying is set to false
   animationsRef.onSnapshot((doc) => {
@@ -55,10 +48,18 @@ app.post('/incrementoddscounter', (req, res) => {
       isPlaying = data.isPlaying;
       if (!isPlaying) {
         clearInterval(interval);
-      } else {
-        oddsCounter = 0; // reset oddsCounter to 0 when isPlaying becomes true
         setTimeout(() => {
-          startInterval();
+          oddsCounter = 0;
+          interval = setInterval(() => {
+            if (isPlaying) {
+              oddsCounter += 0.01;
+              // if oddsCounter reaches 100, reset it to 0
+              if (oddsCounter >= 100) {
+                oddsCounter = 0;
+              }
+            }
+            console.log(oddsCounter);
+          }, 100);
         }, 5000);
       }
     }
@@ -66,7 +67,6 @@ app.post('/incrementoddscounter', (req, res) => {
 
   res.sendStatus(200);
 });
-
 
 // Start the server
 app.listen(8080, () => {
