@@ -11,6 +11,7 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
 const db = admin.firestore();
+// commenting on details
 
 // Store the current odds counter value
 const animationsRef = db.collection('animations').doc('animation');
@@ -26,16 +27,26 @@ app.get('/oddscounter', (req, res) => {
 
 // Endpoint to increment the odds counter value
 app.post('/incrementoddscounter', (req, res) => {
-  var interval = setInterval(() => {
-    if (isPlaying) {
-      oddsCounter += 0.01;
-      // if oddsCounter reaches 100, reset it to 0
-      if (oddsCounter >= 100) {
+  var interval;
+  
+  function startInterval() {
+    interval = setInterval(() => {
+      if (isPlaying) {
+        oddsCounter += 0.01;
+        // if oddsCounter reaches 100, reset it to 0
+        if (oddsCounter >= 100) {
+          oddsCounter = 0;
+        }
+      } else {
+        clearInterval(interval);
+        // then set oddsCounter to 0 immediately after clearing the interval
         oddsCounter = 0;
       }
-    }
-    console.log(oddsCounter);
-  }, 100);
+      console.log(oddsCounter);
+    }, 100);
+  }
+
+  startInterval();
 
   // Stop the interval if isPlaying is set to false
   animationsRef.onSnapshot((doc) => {
@@ -44,17 +55,10 @@ app.post('/incrementoddscounter', (req, res) => {
       isPlaying = data.isPlaying;
       if (!isPlaying) {
         clearInterval(interval);
+      } else {
+        oddsCounter = 0; // reset oddsCounter to 0 when isPlaying becomes true
         setTimeout(() => {
-          interval = setInterval(() => {
-            if (isPlaying) {
-              oddsCounter += 0.01;
-              // if oddsCounter reaches 100, reset it to 0
-              if (oddsCounter >= 100) {
-                oddsCounter = 0;
-              }
-            }
-            console.log(oddsCounter);
-          }, 100);
+          startInterval();
         }, 5000);
       }
     }
