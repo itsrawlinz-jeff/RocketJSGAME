@@ -1,42 +1,7 @@
 <?php 
-                include("connection.php");
-                include("functions.php");
-                if($_SERVER['REQUEST_METHOD'] == "POST")
-                {
-                //something was posted
-                $user_name = $_POST['user_name'];
-                $password = $_POST['password'];
-
-                if(!empty($user_name) && !empty($password) && !is_numeric($user_name))
-                {
-                    //read from database:
-                    $query = "select * from users where user_name = '$user_name' limit 1 ";
-
-                    $result = mysqli_query($con, $query);
-                    if($result)
-                    {
-                        if($result && mysqli_num_rows($result) > 0)
-                        {
-                            $user_data = mysqli_fetch_assoc($result);
-                            if($user_data['password'] === $password);
-                            {
-                                $_SESSION['user_id'] = $user_data['user_id'];
-
-                                // redirect user to dashboard page
-                                //alert("Success !!");
-                                session_start();
-                                header("Location: index.php");
-                                die;
-                            }
-                        }
-                    }
-                    echo "Wrong username or password !!" ;
-                }else
-                {
-                    echo "Wrong username or password !!";
-                }
-
-                }
+    session_start();
+    ob_start(); // Start output buffering
+    global $identity;
 ?>
 
 <!DOCTYPE html>
@@ -326,12 +291,23 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
                     <div class="button large popup-button" data-target="#popup-main">Login Popup</div>
                     <div class="button large popup-button" data-target="#popup-secondary">SignUp Popup</div>
                     -->
+                    <?php
+                    error_reporting(E_ERROR | E_PARSE);
+                    if(!isset($_SESSION['loggedin'])){
+                    echo '<button type="button" class="btn btn-primary button large popup-button" data-target="#popup-main">SIGN IN</button> </a>';
+                    echo'<br>';
+                    echo '<br>';
+                    echo '<button type="button" class="btn btn-secondary button large popup-button" data-target="#popup-secondary">SIGN UP</button>';
+                    echo '<br>';
+                    echo '<br>';
                     
-                    <button type="button" class="btn btn-primary button large popup-button" data-target="#popup-main">LOGIN</button> </a>
-                    <br>
-                    <br>
-                    <button type="button" class="btn btn-secondary button large popup-button" data-target="#popup-secondary">SIGN UP</button>
-                    
+                    }
+                    else{
+                        echo 'Hello, '.$_SESSION['user_name'].' ! '.'<br>';
+                        
+                    }
+                    ?>
+                    <button onclick ="location.href = 'signout.php';" type="button" class="btn btn-primary button large">SIGN OUT</button> </a>
 
                 </nav>
             </div>
@@ -598,7 +574,7 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
     <script src="mail/jqBootstrapValidation.min.js"></script>
     <script src="mail/contact.js"></script>
 
-    <!-- Template Javascript -->
+<!-- Template Javascript -->
     <script src="js/main.js"></script>
 
     
@@ -607,17 +583,74 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
         <div class="popup-overlay popup-button" data-target="#popup-main"></div>
         <div class="popup-inner">
             <?php
-                /* Moved login code to the top ;) */
+              include("connection.php");
+              include("functions.php");
+              if($_SERVER['REQUEST_METHOD'] == "POST")
+              {
+              //something was posted
+              $user_name = $_POST['user_nameL'];
+              $password = $_POST['passwordL'];
+              
+              if(!empty($user_name) && !empty($password) && !is_numeric($user_name))
+              {
+                  //read from database:
+                  //$query = "select * from users where user_name = '$user_name' limit 1 ";
+                  $query = "SELECT * FROM users JOIN user_status ON users.user_id = user_status.user_id WHERE user_name = '$user_name' LIMIT 1";
+                  
+              
+                  //$result = mysqli_query($con, $query);
+                  $result = $con->query($query);
+                  if($result)
+                  {
+                      if($result && mysqli_num_rows($result) > 0)
+                      {
+                          $user_data = mysqli_fetch_assoc($result);
+                          if($user_data['password'] === $password)
+                          {
+                              $_SESSION['user_id'] = $user_data['user_id'];
+                              $_SESSION['user_name'] = $user_data['user_name'];
+                              $_SESSION['date'] = $user_data['date'];
+                              $_SESSION['loggedin'] = true;
+              
+                              $_SESSION['user_deposite'] = $user_data['deposite'];
+                              $_SESSION['user_withdraw'] = $user_data['withdrawals'];
+                              $_SESSION['user_balance'] = $user_data['balance'];
+                              $_SESSION['user_winnings'] = $user_data['winnings'];
+                              
+                              $identity = $user_data['user_id'];
+              
+                              header("Refresh:0");
+                              
+                              die;
+                              
+                          }else{
+                              echo "<script>alert('Wrong username or password !!')</script>";
+                          }
+                      }else{
+                          echo "<script>alert('Wrong username or password !!')</script>";
+                      }
+                  } 
+                  else{
+                      echo "<script>alert('Wrong username or password !!')</script>";
+                  }
+                  
+              }else
+              {
+                  echo "<script>alert('Couldn't signIn !!')</script>";
+              }
+              
+              }
+               
             ?>
             <div id="box"> 
                 <form method= "post">
                     <div style="font-size: 20px; margin: 10px;color:mwhite; ">Login</div>
-                    <input id ="text"type="text" name= "user_name" placeholder="name" ><br><br>
+                    <input id ="text"type="text" name= "user_nameL" placeholder="name" ><br><br>
                     <input id ="text"type="text" name= "contact" placeholder="+254.."><br><br>
-                    <input id ="text"type="password" name= "password" placeholder="***"><br><br>
+                    <input id ="text"type="password" name= "passwordL" placeholder="***"><br><br>
                     <input id ="button"  type="submit" name= "login"><br><br>
 
-                    <button class="button popup-button" data-target="#popup-main" style="border: none; background-color: whitesmoke;">X</button>
+                    <button  class="button popup-button" data-target="#popup-main" style="border: none; background-color: whitesmoke;">X</button>
                     <!-- <a href='/RocketJSGame/RocketJSGAME/signUp.html'>Click to Signup</a><br><br> -->
                 </form>
             </div>
@@ -746,11 +779,15 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
                     </div>
                     <div class="section" id="section3">
                         <h2>History</h2>
-                        <p>This is the content for History.</p>
+                        <div class="sec-content">
+                            <h3>No History found</h3>
+                        </div><br>
                     </div>
                     <div class="section" id="section4">
                         <h2>Bonus</h2>
-                        <p>This is the content for Bonus.</p>
+                        <div class="sec-content">
+                            <h3>You have no Bonus yet</h3>
+                        </div><br>
                     </div>
                     <button class="button popup-button" data-target="#popup-cashier" style="border: none; background-color: whitesmoke;">X</button>
                 </div>
@@ -877,7 +914,7 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
         <div class="popup-inner">
         
             <div id="specialbox"> 
-                <div class="popupcontent">
+            <div class="popupcontent">
                     <div style="font-size: 20px;font-weight: bold; margin-left: 100px ;color:mwhite; ">Account</div><br>
                     <div class="nav">
                         <div class="nav-btn" data-target="overview">Overview</div>
@@ -886,29 +923,44 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
                     <div class="section active" id="overview">
                         <h2>Overview</h2>
                         <div class="sec-content">
-                             <div class="content-inner"><p style=" width: 400px;">Username:  </p><div> </div></div>
-                             <div class="content-inner"><p style=" width: 400px;">Joined:  </p><div> </div></div>
+                             <div class="content-inner"><p style=" width: 400px;">Username:  </p><div> </div> <?php echo $_SESSION['user_name'] ?> </div>
+                             <div class="content-inner"><p style=" width: 400px;">Joined:  </p><div> </div> <?php echo $_SESSION['date'] ?> </div>
                         </div><br>
                         <div class="sec-content">
-                             <div class="content-inner"><p style=" width: 400px;">Deposits:  </p><div> 0</div></div>
-                             <div class="content-inner"><p style=" width: 400px;">Withdrawals:  </p><div> 0</div></div>
-                             <div class="content-inner"><p style=" width: 400px;">Balance:  </p><div>0</div></div>
-                             <div class="content-inner"><p style=" width: 400px;">Winnings:  </p><div>0</div></div>
+                             <div class="content-inner"><p style=" width: 400px;">Deposits:  </p><div> <?php echo $_SESSION['user_deposite'] ?> </div></div>
+                             <div class="content-inner"><p style=" width: 400px;">Withdrawals:  </p><div> <?php echo $_SESSION['user_withdraw'] ?> </div></div>
+                             <div class="content-inner"><p style=" width: 400px;">Balance:  </p><div><?php echo $_SESSION['user_balance'] ?></div></div>
+                             <div class="content-inner"><p style=" width: 400px;">Winnings:  </p><div><?php echo $_SESSION['user_winnings'] ?></div></div>
                         </div><br>
                     </div>
-                    <div class="section" id="settings">
-                        <h2>Change Password</h2><br>
+                    <div>
+                        <?php
+                            
+                        ?>
+                        <form method = "post" action = changePass.php >
+                            <div class="section" id="settings">
+                                <h2>Change Password</h2><br>
 
-                        <div class="sec-content" style="padding:5px 80px 50px 80px">
+                                <div class="sec-content" style="padding:5px 80px 50px 80px">
+                                    <br>
+                                    <p style ="font-size: normal">New Password</p>
+                                    <input id ="text"type="password" name= "new_password" placeholder="****" style="width: 300px;"><br>
+                                    <p style ="font-size: normal">Old Password</p>
+                                    <input id ="text"type="password" name= "old_password" placeholder="****" style="width: 300px;"><br>
+                                </div>
+                                <br>
+                                <?php
+                                    if(isset($_SESSION['loggedin'])){
+                                        echo '<input type="submit" name="submit" value="Change:" style="margin-left: 80px; width: 300px; height: 50px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; font-size: 20px; font-weight: bold; cursor: pointer;"><br><br> 
+                                        <br>';
+                                    }
+                                ?>
+                            </div>
                             <br>
-                            <p style ="font-size: normal">New Password</p>
-                             <input id ="text"type="text" name= "amount" placeholder="****" style="width: 300px;"><br>
-                            <p style ="font-size: normal">Old Password</p>
-                             <input id ="text"type="text" name= "amount" placeholder="****" style="width: 300px;"><br>
-                        </div>
                         
-                    </div><br><br>
-                    <button class="button popup-button" data-target="#popup-profiles" style="border: none; background-color: whitesmoke;">X</button>
+                        </form>
+                    </div>
+                    <button class="button popup-button" data-target="#popup-account" style="border: none; background-color: whitesmoke;">X</button>
                 </div>
             </div>
     </div>
@@ -916,7 +968,7 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
     <div class="popup" id="popup-account">
         <div class="popup-overlay popup-button" data-target="#popup-account"></div>
         <div class="popup-inner">
-        
+            
             <div id="specialbox"> 
                 <div class="popupcontent">
                     <div style="font-size: 20px;font-weight: bold; margin-left: 100px ;color:mwhite; ">Account</div><br>
@@ -927,28 +979,43 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
                     <div class="section active" id="overview">
                         <h2>Overview</h2>
                         <div class="sec-content">
-                             <div class="content-inner"><p style=" width: 400px;">Username:  </p><div> </div></div>
-                             <div class="content-inner"><p style=" width: 400px;">Joined:  </p><div> </div></div>
+                             <div class="content-inner"><p style=" width: 400px;">Username:  </p><div> </div> <?php echo $_SESSION['user_name'] ?> </div>
+                             <div class="content-inner"><p style=" width: 400px;">Joined:  </p><div> </div> <?php echo $_SESSION['date'] ?> </div>
                         </div><br>
                         <div class="sec-content">
-                             <div class="content-inner"><p style=" width: 400px;">Deposits:  </p><div> 0</div></div>
-                             <div class="content-inner"><p style=" width: 400px;">Withdrawals:  </p><div> 0</div></div>
-                             <div class="content-inner"><p style=" width: 400px;">Balance:  </p><div>0</div></div>
-                             <div class="content-inner"><p style=" width: 400px;">Winnings:  </p><div>0</div></div>
+                             <div class="content-inner"><p style=" width: 400px;">Deposits:  </p><div> <?php echo $_SESSION['user_deposite'] ?> </div></div>
+                             <div class="content-inner"><p style=" width: 400px;">Withdrawals:  </p><div> <?php echo $_SESSION['user_withdraw'] ?> </div></div>
+                             <div class="content-inner"><p style=" width: 400px;">Balance:  </p><div><?php echo $_SESSION['user_balance'] ?></div></div>
+                             <div class="content-inner"><p style=" width: 400px;">Winnings:  </p><div><?php echo $_SESSION['user_winnings'] ?></div></div>
                         </div><br>
                     </div>
-                    <div class="section" id="settings">
-                        <h2>Change Password</h2><br>
+                    <div>
+                        <?php
+                            
+                        ?>
+                        <form method = "post" action = changePass.php >
+                            <div class="section" id="settings">
+                                <h2>Change Password</h2><br>
 
-                        <div class="sec-content" style="padding:5px 80px 50px 80px">
+                                <div class="sec-content" style="padding:5px 80px 50px 80px">
+                                    <br>
+                                    <p style ="font-size: normal">New Password</p>
+                                    <input id ="text"type="password" name= "new_password" placeholder="****" style="width: 300px;"><br>
+                                    <p style ="font-size: normal">Old Password</p>
+                                    <input id ="text"type="password" name= "old_password" placeholder="****" style="width: 300px;"><br>
+                                </div>
+                                <br>
+                                <?php
+                                    if(isset($_SESSION['loggedin'])){
+                                        echo '<input type="submit" name="submit" value="Change:" style="margin-left: 80px; width: 300px; height: 50px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; font-size: 20px; font-weight: bold; cursor: pointer;"><br><br> 
+                                        <br>';
+                                    }
+                                ?>
+                            </div>
                             <br>
-                            <p style ="font-size: normal">New Password</p>
-                             <input id ="text"type="text" name= "amount" placeholder="****" style="width: 300px;"><br>
-                            <p style ="font-size: normal">Old Password</p>
-                             <input id ="text"type="text" name= "amount" placeholder="****" style="width: 300px;"><br>
-                        </div>
                         
-                    </div><br><br>
+                        </form>
+                    </div>
                     <button class="button popup-button" data-target="#popup-account" style="border: none; background-color: whitesmoke;">X</button>
                 </div>
             </div>
