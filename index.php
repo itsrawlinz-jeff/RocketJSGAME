@@ -76,7 +76,10 @@
     };
   
     const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+    const db = getFirestore(app);
+
+  const bgImage = new Image();
+  bgImage.src = 'game_assets/outer-space.jpg';
 
     function stars(argument) {
         // body...
@@ -98,10 +101,7 @@
 
 
             scene.appendChild(star);
-            i++
-
- 
-            
+            i++  
         }
     }
     stars();
@@ -157,7 +157,7 @@ const oddsText = document.querySelector('.oddscounter h1');
   const updateOddsCounter = () => {
   $.get('http://localhost:8080/oddscounter', (data) => {
     let oddsCount = parseFloat(data);
-    console.log(`odds counter value received from server: ${data}`);
+    // console.log(`odds counter value received from server: ${data}`);
 
     if (isNaN(oddsCount)) {
       oddsCount = 0.0;
@@ -192,26 +192,29 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
         stars.forEach(function(star) {
             star.style.animationPlayState = 'running';
         });
-
         let odds = document.querySelector('.oddscounter');
         odds.style.display = 'block';
 
         startOddsCounter();
+
+        let svgElements = document.querySelector('.scene .moon');
+        let svgElement2 = document.querySelector('.scene .planet');
+        svgElements.style.display = 'block';
+        svgElement2.style.display = 'block';
         } else {
         console.log("stop animation");
         var rocket1 = document.querySelector('.rocket');
         var busted = document.querySelector('.busted');
         rocket1.style.display = 'none';
         busted.style.display = 'block';
-
         let stars = document.querySelectorAll('.scene i');
         stars.forEach(function(star) {
             star.style.animationPlayState = 'paused';
         });
-
         stopOddsCounter();
-
-        let counter = document.querySelector('.counter');
+       
+        
+    let counter = document.querySelector('.counter');
         counter.style.display = 'block';
         let count = 5;
         let counterText = document.querySelector('.counter h1');
@@ -225,6 +228,11 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
             //   startOddsCounter();
             }
         }, 1000);
+
+        let svgElements = document.querySelector('.scene .moon');
+        let svgElement2 = document.querySelector('.scene .planet');
+        svgElements.style.display = 'none';
+        svgElement2.style.display = 'none';
         }
     });
     };
@@ -363,9 +371,24 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
  <div class="container-fluid py-5">
         <div class="container">
             <div class="row align-items-end mb-4">
-                    
                     <div class="scene"> 
-                        <style>
+
+        <style>
+        .scene{
+            height: 100vh;
+            position: relative;
+            background:  linear-gradient(to bottom, #0d0d29, #1a1a52);
+            background-image: url(game_assets/outer-space.jpg);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            overflow: hidden;
+
+            transition: background-color 2s ease-out;
+            }
+            .rocket{
+                z-index: 1000;
+            }
                             @media screen and (max-width: 600px){
                                 .scene{
                                     height: 50vh;
@@ -378,74 +401,6 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
                     <img src="rocket.png"> 
 
                    <!--  <input class="form-control" type="text" placeholder="X1.5" readonly style="color:black !important;"> -->
-
-
-
-<script>
-    // function stars(argument) {
-    //     // body...
-    //     let count = 50;
-    //     let scene = document.querySelector('.scene');
-    //     let i = 0;
-    //     while(i < count){
-    //         let star=document.createElement('i');
-    //         let x=Math.floor(Math.random() * window.innerWidth);
-
-    //         let duration = Math.random() * 1;
-    //         let h = Math.random() * 100;
-
-    //         star.style.left = x + 'px';
-    //         star.style.width = 1 + 'px';
-    //         star.style.height = 50 + h + 'px';
-    //         star.style.animationDuration = duration + 's';
-
-
-
-    //         scene.appendChild(star);
-    //         i++
-
- 
-            
-    //     }
-    // }
-    // stars();
-
-    // function rocket(){
-    //     var rocket1 = document.querySelector('.rocket');
-    //     var busted = document.querySelector('.busted');
-    //     busted.style.display = 'none';
-
-    //     function blow(){setTimeout(function(){
-    //         rocket1.style.display = 'none';
-    //         busted.style.display = 'block';
-            
-    //         let stars = document.querySelectorAll('.scene i');
-    //         stars.forEach(function(star){
-    //             star.style.animationPlayState = 'paused';
-    //         });
-
-    //         appear();
-    //     }, 2000);}
-
-    //     blow();
-    //     function appear(){setTimeout(function(){
-    //         rocket1.style.display = 'block';
-    //         busted.style.display = 'none';
-            
-    //         let stars = document.querySelectorAll('.scene i');
-    //         stars.forEach(function(star){
-    //             star.style.animationPlayState = 'running';
-    //         });
-
-    //         blow();
-    //     }, 4000);}
-
-    //     appear();
-
-    // }
-    // rocket();
-
-</script>
               
 <!-- <center>
 <button type="button" class="btn btn-secondary">PLAY</button>
@@ -454,6 +409,92 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
 </center> -->
 
         </div>
+
+     
+  <script>
+    const scene = document.querySelector('.scene');
+
+    function createSVG(className, src) {
+  const img = new Image();
+  img.src = src;
+  img.alt = className;
+  img.className = className;
+  img.onload = function() {
+    // positionSVG(img);
+    animateSVG(img);
+  }
+  scene.appendChild(img);
+}
+
+
+function positionSVG(svg) {
+//     const x = Math.random() * (window.innerWidth - svg.width);
+//   const y = -300; // adjust y position to be offscreen at top of .scene div
+//   svg.style.left = `${x}px`;
+//   svg.style.top = `${y}px`;
+}
+
+function animateSVG(svg) {
+  const duration = Math.random() * 10 + 5;
+  const delay = Math.random() * 10;
+  const y = window.innerHeight;
+  svg.animate([
+    { transform: `translateY(0)` },
+    { transform: `translateY(${y}px)` }
+  ], {
+    duration: duration * 10000,
+    delay: delay * 0,
+    iterations: Infinity
+  });
+}
+
+// createSVG('cloud', 'game_assets/cloud.svg');
+
+createSVG('moon', 'game_assets/moon.svg');
+createSVG('planet', 'game_assets/planet2.svg');
+
+  </script>
+<style>
+
+
+.moon,
+.planet{
+  position: absolute;
+  pointer-events: none;
+  /* z-index: -1;  */
+}
+
+.moon {
+  top: -20%;
+  fill: grey;
+  width: 200px;
+  height: 200px;
+  filter: blur(2px);
+  left: -10%;
+}
+
+.planet {
+    top: -25%;
+    left: 85%;
+    fill: blue;
+    width: 300px;
+    height: 300px;
+  filter: blur(2px);
+}
+
+@media screen and (max-width: 600px){
+  .planet{
+    width: 100px;
+    height: 100px;
+    left: 85%;
+  }
+  .moon{
+    width: 80px;
+    height: 80px;
+  }
+}
+
+</style>        
         <!-- place the oddscounter at the bottom of the div -->
         <div class="oddscounter"
          style="display: none; position: absolute; bottom: 0;  margin: 10px; padding: 10px; background: none; color: #fff; font-size: 20px; font-weight: bold;">
@@ -463,11 +504,12 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
         </div>
     </div>
 
-   
-
     <div class="counter" style="display: none;">
             Relaunching in: <h1 style="font-size: 20px;"></h1>
         </div>
+
+
+
     <!--Game Code End-->
     <center>
             <form>
