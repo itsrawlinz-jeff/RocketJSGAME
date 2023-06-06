@@ -363,6 +363,10 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
         <li class="nav-item">
         <div class="nav-link popup-button" data-target="#popup-account">Account Balance</div>
       </li>
+      </li>
+        <li class="nav-item">
+        <div class="nav-link popup-button" data-target="#popup-chats">Chats</div>
+      </li>
     
     </ul>
   </div>
@@ -743,7 +747,7 @@ createSVG('planet', 'game_assets/planet2.svg');
                 <input id ="text"type="password" name= "password" placeholder="***"><br><br>
                 <input id="checkbox" type="checkbox" name="tac"> I accept terms and conditions<br><br>
 
-                <input id ="submit"type="submit" name= "signup"><br><br>
+                <input id ="submit"type="submit" name= "signup" style="  height: 50px; color: whitesmoke; border: none; border-radius: 5px; font-size: 20px; font-weight: bold; cursor: pointer;padding: 10px;background-color: #4CAF50; "><br><br>
                 <button class="button popup-button" data-target="#popup-secondary" style="border: none; background-color: white;">X</button>
                 <!-- <a href='/RocketJSGame/RocketJSGAME/logIn.html'>Click to login</a><br><br> -->
             </form>
@@ -778,7 +782,7 @@ createSVG('planet', 'game_assets/planet2.svg');
                                     </p>
                                 </div><br>
 
-                            <input id ="submit"type="submit" name= "deposit"></input><br><br>
+                            <input id ="submit"type="submit" name= "deposit" style="margin-left: 80px; width: 300px; height: 50px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; font-size: 20px; font-weight: bold; cursor: pointer;"></input><br><br>
                         </form>
                         <form method= "post">
                             <h3>Verify pending mpesa deposit</h3>
@@ -791,7 +795,7 @@ createSVG('planet', 'game_assets/planet2.svg');
                                 </div><br>
                             <label>Mpesa Reference Number:</label><br>
                             <input id ="text"type="text" name= "amount" placeholder="e.g. OKL12X1DM"><br><br>
-                            <input id ="button"type="submit" name= "deposit"></input><br><br>
+                            <input id ="button"type="submit" name= "deposit" style="margin-left: 80px; width: 300px;"></input><br><br>
                         </form>
                         
                     </div>
@@ -816,7 +820,7 @@ createSVG('planet', 'game_assets/planet2.svg');
                              <div class="content-inner"><p style=" width: 400px;">Withdraw Fee:  </p><div>16</div></div>
                              <div class="content-inner"><p style=" width: 400px;">Disbursed Amount:  </p><div> 24</div></div>
                             </div><br>
-                            <input id ="button"type="submit" name= "withdraw"></input><br><br>
+                            <input id ="button"type="submit" name= "withdraw" style="margin-left: 80px; width: 300px;"></input><br><br>
                         </form>
                     </div>
                     <div class="section" id="section3">
@@ -863,7 +867,7 @@ createSVG('planet', 'game_assets/planet2.svg');
                              <div class="content-inner"><p style=" width: 400px;">Total Paid:  </p><div> 0</div></div>
                              <div class="content-inner"><p style=" width: 400px;">Total Unpaid:  </p><div>0</div></div>
                             </div><br>
-                            <button id ="button" name= "transferToWallet">TRANSFER TO WALLET</button><br><br>
+                            <button id ="button" name= "transferToWallet" style="margin-left: 80px; width: 300px;">TRANSFER TO WALLET</button><br><br>
                             <p style ="font-size: x-small">Transfer will be available once you reach KES 100</p><br><br>
                     </div><br><br>
                     <div class="section" id="referals">
@@ -1059,6 +1063,65 @@ createSVG('planet', 'game_assets/planet2.svg');
                         </form>
                     </div>
                     <button class="button popup-button" data-target="#popup-account" style="border: none; background-color: whitesmoke;">X</button>
+                </div>
+            </div>
+    </div>
+    
+    <div class="popup" id="popup-chats">
+        <div class="popup-overlay popup-button" data-target="#popup-chats"></div>
+        <div class="popup-inner">
+        
+        <div id="specialbox"> 
+                <div class="popupcontent">
+                    <div style="font-size: 20px;font-weight: bold; margin-left: 100px ;color:mwhite; "></div><br><br>
+                    
+                    <div class="active" id="">
+
+                        <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+                        <script type="text/javascript" src="php-chat-100-lines-master/AjaxPush.js"></script>
+                        <script type="text/javascript">
+                                var comet = new AjaxPush('php-chat-100-lines-master/listener.php', 'php-chat-100-lines-master/sender.php');
+                                var n = new Function("return (Math.random()*190).toFixed(0)");
+
+                                // create anonymous users
+                                var c = "rgb(" + n() + ", " + n() + "," + n() + ")";
+                                var template = "<strong style='color: " + c + "'>" + 'user_' + n() + "</strong>: ";
+
+                                // listener
+                                comet.connect(function(data) { $("#history").append(data.message) + "<br>"; });
+
+                                // sender
+                                var send = function() {
+                                    comet.doRequest({ message: template + $("#message").val() + "<br>" }, function(){
+                                        $("#message").val('').focus();
+                                    })
+                                }
+                            </script>
+                        <div class="sec-content" >
+                            <br>
+                            <h2>User chats:</h2>
+                            <hr>
+                    
+                            <div id="history" style="overflow-y: scroll; max-height: 166px;"></div>
+                            
+                        </div>
+                       
+
+                        <div class="" style="padding:5px 80px 50px 80px">
+                        
+                        <p style ="font-size: normal">Give a contribution:</p>
+                        <input type="text" autofocus id="message" placeholder="your message!" style="width: 300px; border-radius: 5px; padding: 4px; border: solid thin #aaa; background-color: whitesmoke;"><br><br>
+                        
+                        <?php
+                                    if(isset($_SESSION['loggedin'])){
+                                        echo '<button onclick="send()" style="width: 300px; height: 50px; background-color: rgb(211, 211, 10); color: black; border: none; border-radius: 5px; font-size: 20px; font-weight: bold; cursor: pointer;">Send</button>';
+                                    }
+                                ?>
+                        </div>
+                        
+                    </div>
+                    
+                    <button class="button popup-button" data-target="#popup-chats" style="border: none; background-color: whitesmoke;">X</button>
                 </div>
             </div>
     </div>
