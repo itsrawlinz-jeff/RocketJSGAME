@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 <strong style='color: rgb(184, 151,93)'>user_30</strong>: Great site here<br>
+=======
+<strong style='color: rgb(33, 17,52)'>user_127</strong>: yes<br>
+>>>>>>> d20b153d7a7adc56990ba53b7bdeded6da9a342a

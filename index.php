@@ -379,6 +379,7 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
 
         <style>
         .scene{
+            z-index: -1;
             height: 100vh;
             position: relative;
             background:  linear-gradient(to bottom, #0d0d29, #1a1a52);
@@ -773,9 +774,10 @@ createSVG('planet', 'game_assets/planet2.svg');
                     </div>
                     <div class="section active" id="section1">
                         <h2>Deposit</h2>
-                        <form method= "post">
+                        <form action="payment-api.php" method= "post">
                             <label>Amount(KES)</label><br>
                             <input id ="text"type="text" name= "amount" placeholder="200"><br><br>
+                            <input id ="text"type="text" name= "phone_number" placeholder="2547..."><br><br>
 
                                 <div class="sec-content">
                                     <p>Please note:</p>
