@@ -252,7 +252,7 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
         <div class="row">
             <div class="col-lg-3 bg-secondary d-none d-lg-block">
                 <a href="" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
-                    <h1 class="m-0 display-3 text-primary">Horizon</h1>
+                    <h1 class="m-0 display-3 text-primary">RKash</h1>
                 </a>
             </div>
             <div class="col-lg-9">
@@ -260,7 +260,7 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
                     <div class="col-lg-7 text-left text-white">
                         <div class="h-100 d-inline-flex align-items-center border-right border-primary py-2 px-3">
                             <i class="fa fa-envelope text-primary mr-2"></i>
-                            <small>info@horizon.com</small>
+                            <small>info@rocktkach.com</small>
                         </div>
                         <div class="h-100 d-inline-flex align-items-center py-2 px-2">
                             <i class="fa fa-phone-alt text-primary mr-2"></i>
@@ -289,7 +289,7 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
                 </div>
                 <nav class="navbar navbar-expand-lg bg-white navbar-light p-0">
                     <a href="" class="navbar-brand d-block d-lg-none">
-                        <h1 class="m-0 display-4 text-primary">Horizon</h1>
+                        <h1 class="m-0 display-4 text-primary">RKash</h1>
                     </a>
                     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                         <span class="navbar-toggler-icon"></span>
@@ -311,7 +311,7 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
                     
                     }
                     else{
-                        echo 'Hello, '.$_SESSION['user_name'].' ! '.'<br>';
+                        echo '<strong> Hello, '.$_SESSION['user_name'].' ! </strong>'.'<br>';
                         
                     }
                     ?>
@@ -328,7 +328,7 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
         <div class="container py-5">
             <div class="row align-items-center py-4">
                 <div class="col-md-6 text-center text-md-left">
-                    <h1 class="display-4 mb-4 mb-md-0 text-secondary text-uppercase">Horizon Game</h1>
+                    <h1 class="display-4 mb-4 mb-md-0 text-secondary text-uppercase">Rocket Cash</h1>
                 </div>
                 <div class="col-md-6 text-center text-md-right">
                     <div class="d-inline-flex align-items-center">
@@ -723,16 +723,20 @@ createSVG('planet', 'game_assets/planet2.svg');
                     //save to database:
                     $user_id = random_num(20);
                     $query = "insert into users (user_id,user_name,contact,password) values ('$user_id', '$user_name', '$contact', '$password')";
+                    $sql = "INSERT INTO user_status (user_id, deposite, withdrawals, balance, winnings) VALUES ('$user_id', 0, 0, 0, 0)";
 
                     mysqli_query($con, $query);
+                    mysqli_query($con, $sql);
 
                     // redirect user to login page
-                    alert("Success !!");                
+                    echo "<script>alert('Success !!')</script>";
+                                   
                     //header("Location: login.php");
                     die;
                 }else
                 {
-                    alert("Please enter some valid information!");
+                    echo "<script>alert('Please enter some valid information!')</script>";
+                    
                 }
 
             }
