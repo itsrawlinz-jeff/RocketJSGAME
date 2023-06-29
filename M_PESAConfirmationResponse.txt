@@ -1,0 +1,40 @@
+{"Body":{"stkCallback":{"MerchantRequestID":"20013-34877455-1","CheckoutRequestID":"ws_CO_30062023000530854757800184","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}{"Body":{"stkCallback":{"MerchantRequestID":"12131-193329574-1","CheckoutRequestID":"ws_CO_30062023000642503757800184","ResultCode":0,"ResultDesc":"The service request is processed successfully.","CallbackMetadata":{"Item":[{"Name":"Amount","Value":1},{"Name":"MpesaReceiptNumber","Value":"RFU6B2EEZU"},{"Name":"Balance"},{"Name":"TransactionDate","Value":20230630000650},{"Name":"PhoneNumber","Value":254757800184}]}}}}{"Body":{"stkCallback":{"MerchantRequestID":"23308-117104521-1","CheckoutRequestID":"ws_CO_30062023001702059757800184","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}{"Body":{"stkCallback":{"MerchantRequestID":"10921-42305300-1","CheckoutRequestID":"ws_CO_30062023001915264757800184","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}{"Body":{"stkCallback":{"MerchantRequestID":"117732-188945597-1","CheckoutRequestID":"ws_CO_30062023002032402757800184","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}{"Body":{"stkCallback":{"MerchantRequestID":"101785-19294205-1","CheckoutRequestID":"ws_CO_30062023002302068757800184","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+ 
+
+ 
+{"Body":{"stkCallback":{"MerchantRequestID":"101793-19296540-1","CheckoutRequestID":"ws_CO_30062023002447876757800184","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+
+{"Body":{"stkCallback":{"MerchantRequestID":"22271-174271268-1","CheckoutRequestID":"ws_CO_30062023002810607757800184","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+
+{"Body":{"stkCallback":{"MerchantRequestID":"85876-100862316-1","CheckoutRequestID":"ws_CO_30062023003217514757800184","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+
+{"Body":{"stkCallback":{"MerchantRequestID":"70239-188876604-1","CheckoutRequestID":"ws_CO_30062023004018599757800184","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+
+{"Body":{"stkCallback":{"MerchantRequestID":"23297-117135476-1","CheckoutRequestID":"ws_CO_30062023004159606757800184","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+
+{"Body":{"stkCallback":{"MerchantRequestID":"117736-188972724-1","CheckoutRequestID":"ws_CO_30062023004455774757800184","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+
+{"Body":{"stkCallback":{"MerchantRequestID":"70246-188884482-1","CheckoutRequestID":"ws_CO_30062023004812387757800184","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+
+{"Body":{"stkCallback":{"MerchantRequestID":"85877-100883087-1","CheckoutRequestID":"ws_CO_30062023005056686757800184","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+
+{"Body":{"stkCallback":{"MerchantRequestID":"25022-42360434-1","CheckoutRequestID":"ws_CO_30062023005459460757800184","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+
+{"Body":{"stkCallback":{"MerchantRequestID":"25020-42361295-1","CheckoutRequestID":"ws_CO_30062023005546288757800184","ResultCode":0,"ResultDesc":"The service request is processed successfully.","CallbackMetadata":{"Item":[{"Name":"Amount","Value":1},{"Name":"MpesaReceiptNumber","Value":"RFU7B34VJT"},{"Name":"Balance"},{"Name":"TransactionDate","Value":20230630005554},{"Name":"PhoneNumber","Value":254757800184}]}}}}
+
+{"Body":{"stkCallback":{"MerchantRequestID":"21306-189121671-1","CheckoutRequestID":"ws_CO_30062023005749944757800184","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+
+{"Body":{"stkCallback":{"MerchantRequestID":"12126-193393243-1","CheckoutRequestID":"ws_CO_30062023010013585757800184","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+
+{"Body":{"stkCallback":{"MerchantRequestID":"12145-193395714-1","CheckoutRequestID":"ws_CO_30062023010240567757800184","ResultCode":0,"ResultDesc":"The service request is processed successfully.","CallbackMetadata":{"Item":[{"Name":"Amount","Value":1},{"Name":"MpesaReceiptNumber","Value":"RFU0B37ESC"},{"Name":"Balance"},{"Name":"TransactionDate","Value":20230630010251},{"Name":"PhoneNumber","Value":254757800184}]}}}}
+
+{"Body":{"stkCallback":{"MerchantRequestID":"94391-189028924-1","CheckoutRequestID":"ws_CO_30062023010949372757800184","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"78571-162633833-1","CheckoutRequestID":"ws_CO_30062023011740902757800184","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"20059-34958716-1","CheckoutRequestID":"ws_CO_30062023012144684757800184","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+
+{"Body":{"stkCallback":{"MerchantRequestID":"25060-42387634-1","CheckoutRequestID":"ws_CO_30062023012237721757800184","ResultCode":0,"ResultDesc":"The service request is processed successfully.","CallbackMetadata":{"Item":[{"Name":"Amount","Value":1},{"Name":"MpesaReceiptNumber","Value":"RFU1B3F9UX"},{"Name":"Balance"},{"Name":"TransactionDate","Value":20230630012250},{"Name":"PhoneNumber","Value":254757800184}]}}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"20008-34972948-1","CheckoutRequestID":"ws_CO_30062023012420336757800184","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"20054-34962481-1","CheckoutRequestID":"ws_CO_30062023012540243757800184","ResultCode":0,"ResultDesc":"The service request is processed successfully.","CallbackMetadata":{"Item":[{"Name":"Amount","Value":1},{"Name":"MpesaReceiptNumber","Value":"RFU7B3FVLL"},{"Name":"Balance"},{"Name":"TransactionDate","Value":20230630012549},{"Name":"PhoneNumber","Value":254757800184}]}}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"101797-19366434-1","CheckoutRequestID":"ws_CO_30062023012640567757800184","ResultCode":2001,"ResultDesc":"The initiator information is invalid."}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"22268-174335471-1","CheckoutRequestID":"ws_CO_30062023013213887757800184","ResultCode":2001,"ResultDesc":"The initiator information is invalid."}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"88625-187201882-1","CheckoutRequestID":"ws_CO_30062023014000159757800184","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}

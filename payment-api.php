@@ -1,6 +1,6 @@
 <?php
 include 'connection.php';
-// Initialize the variables
+
 $consumer_key = 'AIXvNPzpT16hn8VWvA07vJNtmsAdrhD6';
 $consumer_secret = 'CKNF0mWAUAOkcOWQ';
 $Business_Code = '6349648';
@@ -11,12 +11,10 @@ $Token_URL = 'https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_cr
 $phone_number = $_POST['phone_number'];
 $OnlinePayment = 'https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
 $total_amount = $_POST['amount'];
-$CallBackURL = 'https://us-central1-mybike-57a88.cloudfunctions.net/ussd';
+// $CallBackURL = 'https://us-central1-rocket-f1c0e.cloudfunctions.net/rocket/rocket'; 
+$CallBackURL = 'https://cbb5-102-219-208-154.ngrok-free.app/rocketjsgame/callback.php'; // ngrok url for development
 $Time_Stamp = date("Ymdhis");
 $password = base64_encode($Business_Code . $Passkey . $Time_Stamp);
-
-
-//generate authentication token.
 
 $curl_Tranfer = curl_init();
 curl_setopt($curl_Tranfer, CURLOPT_URL, $Token_URL);
@@ -29,7 +27,6 @@ $curl_Tranfer_response = curl_exec($curl_Tranfer);
 
 $token = json_decode($curl_Tranfer_response)->access_token;
 
-// another section
 $curl_Tranfer2 = curl_init();
 curl_setopt($curl_Tranfer2, CURLOPT_URL, $OnlinePayment);
 curl_setopt($curl_Tranfer2, CURLOPT_HTTPHEADER, array('Content-Type:application/json', 'Authorization:Bearer ' . $token));
@@ -58,48 +55,15 @@ curl_setopt($curl_Tranfer2, CURLOPT_SSL_VERIFYPEER, 0);
 curl_setopt($curl_Tranfer2, CURLOPT_SSL_VERIFYHOST, 0);
 $curl_Tranfer2_response = json_decode(curl_exec($curl_Tranfer2));
 
+// this one looks if the stk push was processed
 echo json_encode($curl_Tranfer2_response, JSON_PRETTY_PRINT);
 
-
-// update the database
-// Assuming you have established a connection to your database in the connection.php file
-
-// Check if the payment was successful
-if (isset($curl_Tranfer2_response->ResultCode) && $curl_Tranfer2_response->ResultCode == 0) {
-  // Payment successful, update the balance in the database
-
-  // Retrieve the user's phone number and amount from the payment form
-  $phone_number = $_POST['phone_number'];
-  $total_amount = $_POST['amount'];
-
-  // Prepare the SQL statement to update the balance
-  // $sql = "UPDATE user_status SET balance = 7000 WHERE id = 4";
-  // update $_SESSION['user_balance'] = $total_amount + $_SESSION['user_balance'];
-  $sql = 
-  $stmt = $con->prepare($sql);
-
-  // Check if the statement preparation was successful
-  if ($stmt) {
-      $stmt->bind_param("ss", $total_amount, $phone_number);
-
-      // Execute the statement
-      $stmt->execute();
-
-      // Check if the update was successful
-      if ($stmt->affected_rows > 0) {
-          echo "Payment successful. Balance updated in the database.";
-      } else {
-          echo "Payment successful, but failed to update balance in the database.";
-      }
-
-      // Close the statement
-      $stmt->close();
-  } else {
-      echo "Failed to prepare the SQL statement.";
-  }
-} else {
-  // Payment not successful or ResultCode is undefined
-  echo "Payment failed. Please try again.";
-}
-
 ?>
+<!-- <form class="contact2-form validate-form" action="callback.php" method="post">
+   <input type="hidden" name="Check_request_ID" value="<?php 
+   //echo $curl_Tranfer2_response->Check_request_ID
+    ?>
+   ">
+   </br></br>
+   <button class="contact2-form-btn" style="margin-bottom: 30px;">Confirm Payment is Complete</button>
+</form> -->
