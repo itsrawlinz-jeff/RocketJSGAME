@@ -724,7 +724,7 @@ createSVG('planet', 'game_assets/planet2.svg');
                     //save to database:
                     $user_id = random_num(20);
                     $query = "insert into users (user_id,user_name,contact,password) values ('$user_id', '$user_name', '$contact', '$password')";
-                    $sql = "INSERT INTO user_status (user_id, deposite, withdrawals, balance, winnings) VALUES ('$user_id', 0, 0, 0, 0)";
+                    $sql = "INSERT INTO user_status (user_id, phone, deposite, withdrawals, balance, winnings) VALUES ('$user_id', '$contact', 0, 0, 0, 0)";
 
                     mysqli_query($con, $query);
                     mysqli_query($con, $sql);
@@ -747,10 +747,10 @@ createSVG('planet', 'game_assets/planet2.svg');
         <div id="box">
             <form method= "post">
                 <div style="font-size: 20px; margin: 10px;color:mwhite; ">Signup</div>
-                <input id ="text"type="text" name= "contact" placeholder="+254.."><br><br>
-                <input id ="text"type="text" name= "user_name" placeholder="name"><br><br>
-                <input id ="text"type="password" name= "password" placeholder="***"><br><br>
-                <input id="checkbox" type="checkbox" name="tac"> I accept terms and conditions<br><br>
+                <input id ="text"type="tel" pattern="[0-9]{10}" name= "contact" placeholder="07.." required><br><br>
+                <input id ="text"type="text" name= "user_name" placeholder="name" required><br><br>
+                <input id ="text"type="password" name= "password" placeholder="***" required><br><br>
+                <input id="checkbox" type="checkbox" name="tac"> I accept <a href='/RocketJSGame/terms_and_conditions.php'>terms and conditions</a><br><br>
 
                 <input id ="submit"type="submit" name= "signup" style="  height: 50px; color: whitesmoke; border: none; border-radius: 5px; font-size: 20px; font-weight: bold; cursor: pointer;padding: 10px;background-color: #4CAF50; "><br><br>
                 <button class="button popup-button" data-target="#popup-secondary" style="border: none; background-color: white;">X</button>
@@ -774,10 +774,19 @@ createSVG('planet', 'game_assets/planet2.svg');
                     </div>
                     <div class="section active" id="section1">
                         <h2>Deposit</h2>
+                        <?php
+                            $sql = "SELECT * FROM users WHERE user_id = '$user_id'";
+                            $result = mysqli_query($con, $sql);
+                            $row = mysqli_fetch_assoc($result);
+                            $conr = $row['contact'];
+                            $conr = "254" . trim($conr);
+                        ?>
                         <form action="payment-api.php" method= "post">
                             <label>Amount(KES)</label><br>
-                            <input id ="text"type="text" name= "amount" placeholder="200"><br><br>
-                            <input id ="text"type="text" name= "phone_number" placeholder="2547..."><br><br>
+                            <input id ="text" type="text" name= "amount" placeholder="200"><br><br>
+                            <input id ="te" type="text" name= "phone_number" value="<?php echo $conr; ?>" readonly>
+                            <br><br>
+                            <input id ="text"type="text" name= "user_id" value="<?php echo $user_id; ?>" hidden><br><br> 
 
                                 <div class="sec-content">
                                     <p>Please note:</p>
@@ -789,7 +798,8 @@ createSVG('planet', 'game_assets/planet2.svg');
                                 </div><br>
 
                             <input id ="submit"type="submit" name= "deposit" style="margin-left: 80px; width: 300px; height: 50px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; font-size: 20px; font-weight: bold; cursor: pointer;"></input><br><br>
-                        </form>
+                        </form>
+
                         <form method= "post">
                             <h3>Verify pending mpesa deposit</h3>
                                 <div class="sec-content">

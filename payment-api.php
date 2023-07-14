@@ -1,5 +1,7 @@
 <?php
+//session_start();
 include 'connection.php';
+include("functions.php");
 
 $consumer_key = 'AIXvNPzpT16hn8VWvA07vJNtmsAdrhD6';
 $consumer_secret = 'CKNF0mWAUAOkcOWQ';
@@ -12,7 +14,7 @@ $phone_number = $_POST['phone_number'];
 $OnlinePayment = 'https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
 $total_amount = $_POST['amount'];
 // $CallBackURL = 'https://us-central1-rocket-f1c0e.cloudfunctions.net/rocket/rocket'; 
-$CallBackURL = 'https://cbb5-102-219-208-154.ngrok-free.app/rocketjsgame/callback.php'; // ngrok url for development
+$CallBackURL = 'https://3b46-102-0-0-243.ngrok-free.app/RocketJSGame/callback.php'; // ngrok url for development
 $Time_Stamp = date("Ymdhis");
 $password = base64_encode($Business_Code . $Passkey . $Time_Stamp);
 
@@ -57,6 +59,9 @@ $curl_Tranfer2_response = json_decode(curl_exec($curl_Tranfer2));
 
 // this one looks if the stk push was processed
 echo json_encode($curl_Tranfer2_response, JSON_PRETTY_PRINT);
+
+//header("location:/RocketJSGame/index.php");
+//exit;
 
 ?>
 <!-- <form class="contact2-form validate-form" action="callback.php" method="post">

@@ -19,6 +19,9 @@ window.onload = () => {
     const navButtons = document.querySelectorAll('.nav-btn');
     const sections = document.querySelectorAll('.section');
 
+    // Activate the first section by default
+    sections[0].classList.add('active');
+    
     navButtons.forEach(button => {
       button.addEventListener('click', () => {
         const target = button.dataset.target;
