@@ -151,12 +151,35 @@
 
     const startOddsCounter = () => {
 const oddsText = document.querySelector('.oddscounter h1');
+// console.log("odds text here", oddsText)
   let oddsInterval = null;
 
   // Send an AJAX GET request to retrieve the current odds counter value from the server
+  let executedOnce = false;
+
   const updateOddsCounter = () => {
   $.get('http://localhost:8080/oddscounter', (data) => {
     let oddsCount = parseFloat(data);
+    let aco = parseFloat(document.getElementById("aco").value);
+    console.log(aco);
+    let pesa = document.getElementById("pesa").value;
+    console.log(pesa);
+    if(oddsCount >= aco && !executedOnce){
+        var multiply = pesa * aco;
+        console.log("mulr here", multiply);
+        executedOnce = true; 
+
+        $.ajax({
+  url: "update-stake.php",
+  type: "POST",
+  data: { value: multiply},
+  success: function(response) {
+    // Handle the response from the server
+    console.log(response);
+}
+});
+    }
+    console.log("oddscount here", oddsCount);
     // console.log(`odds counter value received from server: ${data}`);
 
     if (isNaN(oddsCount)) {
@@ -174,9 +197,53 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
 });
     }
 
-    const stopOddsCounter = () => {
-    clearInterval(oddsInterval);
-    }
+//     const stopOddsCounter = () => {
+//         const oddsText = document.querySelector('.oddscounter h1');
+//         const oddsValue = oddsText.textContent; // Get the value from the element
+
+// // Make an AJAX POST request to your PHP script
+// const xhr = new XMLHttpRequest();
+// xhr.open('POST', 'index.php');
+// xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+// xhr.send('odds=' + encodeURIComponent(oddsValue)); // Send the odds value as a parameter
+
+//         console.log("stopped here", oddsText);
+//     clearInterval(oddsInterval);
+//     }
+const stopOddsCounter = () => {
+  const oddsText = document.querySelector('.oddscounter h1');
+
+  
+$.ajax({
+  url: "update-stake.php",
+  type: "POST",
+  data: { value: oddsText },
+  success: function(response) {
+    // Handle the response from the server
+    console.log(response);
+}
+});
+//   const oddsValue = oddsText.textContent; // Get the value from the element
+
+//   const xhr = new XMLHttpRequest();
+//   xhr.open('POST', 'update-stake.php');
+//   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+//   xhr.onreadystatechange = function () {
+//     if (xhr.readyState === XMLHttpRequest.DONE) {
+//       if (xhr.status === 200) {
+//         const response = xhr.responseText;
+//         console.log(response); // Handle the response if needed
+//       } else {
+//         console.error('Error: ' + xhr.status); // Handle errors
+//       }
+//     }
+//   };
+//   xhr.send('odds=' + encodeURIComponent(oddsValue));
+  
+  console.log("stopped here", oddsText);
+  clearInterval(oddsInterval);
+};
+
 
     const animationListener = () => {
     console.log("animationListener");
@@ -192,7 +259,9 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
         stars.forEach(function(star) {
             star.style.animationPlayState = 'running';
         });
-        let odds = document.querySelector('.oddscounter');
+        let odds = document.querySelector('.oddscounter'); 
+        console.log("odds here", odds);
+  
         odds.style.display = 'block';
 
         startOddsCounter();
@@ -243,6 +312,7 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
 
 </script>
 
+
 <!----------------------------------- FIREBASE HERE ------------------------------->
 
 
@@ -287,6 +357,7 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
                         </div>
                     </div>
                 </div>
+                
                 <nav class="navbar navbar-expand-lg bg-white navbar-light p-0">
                     <a href="" class="navbar-brand d-block d-lg-none">
                         <h1 class="m-0 display-4 text-primary">RKash</h1>
@@ -415,7 +486,6 @@ $.post('http://localhost:8080/incrementoddscounter', () => {
 
         </div>
 
-     
   <script>
     const scene = document.querySelector('.scene');
 
@@ -515,6 +585,7 @@ createSVG('planet', 'game_assets/planet2.svg');
 
 
 
+
     <!--Game Code End-->
     <center>
             <form>
@@ -525,15 +596,15 @@ createSVG('planet', 'game_assets/planet2.svg');
             <input type="text" id="disabledTextInput" class="form-control" placeholder=" X30.5">
         </fieldset>
         </form>
-        <form>
+        <form action="update-stake.php" method="POST">
         <div class="mb-3">
             <label for="" class="form-label" style="color:blue !important"> <b>AMOUNT</b> </label>
-            <input type="number" class="form-control" id="" aria-describedby="Amount To Stake">
+            <input type="number" name="pesa" class="form-control" id="pesa" aria-describedby="Amount To Stake">
             <div id="" class="form-text">Enter the Amount To Stake</div>
         </div>
         <div class="mb-3">
             <label for="" class="form-label"> <b>Auto Cash Out(X)</b> </label>
-            <input type="number" class="form-control" id="1">
+            <input type="number" name="aco" id="aco" class="form-control" id="1">
         </div>
         
         <button type="submit" class="btn btn-primary">STAKE</button>

@@ -14,7 +14,7 @@ $phone_number = $_POST['phone_number'];
 $OnlinePayment = 'https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
 $total_amount = $_POST['amount'];
 // $CallBackURL = 'https://us-central1-rocket-f1c0e.cloudfunctions.net/rocket/rocket'; 
-$CallBackURL = 'https://3b46-102-0-0-243.ngrok-free.app/RocketJSGame/callback.php'; // ngrok url for development
+$CallBackURL = 'https://350e-41-220-235-223.ngrok-free.app/RocketJSGame/callback.php'; // ngrok url for development
 $Time_Stamp = date("Ymdhis");
 $password = base64_encode($Business_Code . $Passkey . $Time_Stamp);
 
